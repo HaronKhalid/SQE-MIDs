@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQE Mids Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="logo">SQE <span>Mids</span> Guide</div>
+    <nav class="tabs" id="tabs"></nav>
+    <button class="icon-btn" id="themeBtn" title="Dark / light">🌓</button>
+  </div>
+  <div class="pbar"><i id="pfill"></i></div>
+</header>
+
+<main>
+
+<!-- ============================ HOME ============================ -->
+<section class="page" id="home">
+  <h1>Software Quality Engineering — Mids in 2 Days</h1>
+  <p>This page turns your 5 lectures (Ms. Samreen, FUUAST) into short, simple notes. Every slide topic is covered. Each topic has <b>Urdu examples</b> and a <b>small tool you can play with</b>. Press <b>“Mark learned”</b> on each topic to track your progress.</p>
+
+  <div class="home-grid">
+    <div class="card"><h3>📘 Day 1</h3><ul>
+      <li><b>Morning:</b> Chapter 1 (Quality basics) + try the tools</li>
+      <li><b>Afternoon:</b> Chapter 2 (Quality Models: McCall, ISO 9126, Boehm, FURPS, GQM)</li>
+      <li><b>Evening:</b> Chapter 3 (Cost of Quality) + Quiz for Ch 1–3</li></ul></div>
+    <div class="card"><h3>📗 Day 2</h3><ul>
+      <li><b>Morning:</b> Chapter 4 (Quality Assurance, defect prevention, static/dynamic testing)</li>
+      <li><b>Afternoon:</b> Chapter 5 (Fault tolerance, diversity, Fault Tree)</li>
+      <li><b>Evening:</b> Flashcards → Full quiz → Cheat Sheet</li></ul></div>
+    <div class="card"><h3>🎯 How to use</h3><ul>
+      <li>Read the <b>short notes</b> (blue = remember this).</li>
+      <li>Read the <b>Urdu example</b> (purple box).</li>
+      <li>Play with the <b>🧪 tools</b>. Type your own numbers.</li>
+      <li>Finish with the <b>Quiz</b>. Weak chapter? Read it again.</li></ul></div>
+  </div>
+
+  <h2>Coverage map (nothing is missed)</h2>
+  <p style="color:var(--muted)">Every topic from the 5 lectures is listed here. Click to jump. ✅ = learned.</p>
+  <div class="home-grid cov" id="covmap"></div>
+  <div class="card"><b>Your progress:</b> <span id="ptext">0%</span>
+    <button class="b alt" id="resetP" style="margin-left:10px">Reset</button></div>
+  <div class="warn"><b>Note:</b> A few slides were only pictures (ISO 9126 table, Boehm tree, GQM examples, cost graphs). For those I used the standard textbook version of the same topic, so you can still revise it fully.</div>
+</section>
+
+<!-- ============================ CHAPTER 1 ============================ -->
+<section class="page" id="c1">
+  <h1>Chapter 1: Introduction to Software Quality Engineering</h1>
+  <p style="color:var(--muted)">Quality · Quality Types · Quality Control · Different views of Quality</p>
+
+  <article class="topic" data-id="c1-1" data-title="What is Quality?">
+    <h3>What is Quality?</h3>
+    <div class="key">Quality = meeting the customer's requirements, at the <b>agreed cost</b>, within the <b>agreed time</b>.<br>Also: <b>“Fitness for purpose”</b> (Joseph Juran) and <b>customer satisfaction</b>.</div>
+    <ul><li>Three things together: <b>requirements + cost + time</b>.</li>
+    <li>A good product that comes late or costs too much is <b>not</b> quality.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>آپ نے درزی سے کہا: "کل تک 2000 روپے میں کُرتا چاہیے۔" اگر کُرتا ٹھیک ناپ کا، 2000 میں اور کل تک مل گیا تو کوالٹی ہے۔ اگر خوبصورت ہے مگر ایک ہفتہ لیٹ آیا یا 3500 کا پڑا، تو کوالٹی نہیں۔</div>
+  </article>
+
+  <article class="topic" data-id="c1-2" data-title="Definitions of Quality (Juran, IEEE, ISO, Weinberg)">
+    <h3>Definitions of Quality</h3>
+    <div class="scroll"><table>
+      <tr><th>Who</th><th>Simple meaning</th></tr>
+      <tr><td>American Heritage Dictionary</td><td>A characteristic or attribute of something.</td></tr>
+      <tr><td>Juran</td><td>Fitness for purpose.</td></tr>
+      <tr><td>IEEE Glossary</td><td>Degree to which a system, component or process meets (1) <b>specified requirements</b> and (2) <b>customer needs or expectations</b>.</td></tr>
+      <tr><td>ISO 8402</td><td>The totality of features of a product/service that bear on its ability to satisfy <b>stated or implied needs</b>.</td></tr>
+      <tr><td>Gerald Weinberg</td><td>“Quality is <b>value to some person</b>.” So it is <b>subjective</b>: different people feel different quality in the same software.</td></tr>
+    </table></div>
+    <div class="ur"><b class="t">اردو مثال (Weinberg)</b>ایک ہی موبائل ایپ طالب علم کو بہت اچھی لگتی ہے کیونکہ مفت ہے، لیکن دکاندار کو بری لگتی ہے کیونکہ اس میں بل بنانے کی سہولت نہیں۔ کوالٹی "کسی شخص کے لیے قدر" ہے۔</div>
+    <div class="lab"><h4>Who said it?</h4><div id="s-who"></div></div>
+  </article>
+
+  <article class="topic" data-id="c1-3" data-title="Software Quality (Pressman)">
+    <h3>Software Quality (Roger Pressman)</h3>
+    <div class="key">Software quality = conformance to <b>(1) explicit functional &amp; performance requirements</b>, <b>(2) documented development standards</b>, and <b>(3) implicit characteristics</b> expected from all professional software.</div>
+    <p><b>3 important points:</b></p>
+    <ul>
+      <li>Requirements are the <b>foundation</b>. No conformance to requirements = no quality.</li>
+      <li>Standards guide how software is built. If you ignore them, lack of quality is almost sure.</li>
+      <li>If software meets explicit requirements but fails <b>implicit</b> ones, quality is <b>suspect</b>.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b><b>واضح (explicit):</b> "ایپ میں لاگ اِن ہو۔" <b>غیر واضح (implicit):</b> کسی نے کہا نہیں مگر ہر کوئی چاہتا ہے کہ ایپ بار بار کریش نہ ہو اور پاس ورڈ محفوظ رہے۔ اگر ایپ لاگ اِن کر دے مگر روز کریش ہو تو کوالٹی مشکوک ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c1-4" data-title="Variation Control">
+    <h3>Variation Control</h3>
+    <div class="key">Variation is the <b>heart of quality control</b>. Goal: reduce the difference between <b>predicted</b> resources (staff, equipment, time) and <b>actual</b> resources used.</div>
+    <div class="ur"><b class="t">اردو مثال</b>آپ نے اندازہ لگایا کہ پروجیکٹ 3 ماہ اور 4 بندوں میں مکمل ہوگا۔ حقیقت میں 6 ماہ اور 7 بندے لگ گئے۔ یہ بڑا "فرق" (variation) ہے۔ اچھی ٹیم اس فرق کو کم سے کم رکھتی ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c1-5" data-title="Quality of Design">
+    <h3>Quality Type 1: Quality of Design</h3>
+    <div class="key">How well the software is <b>designed</b>. It is the quality the producer <b>intends</b> to give the customer (keeping customer requirements in mind).</div>
+    <ul><li>Design is only <b>5% of product cost</b> but has <b>70% influence</b> on quality, manufacturability, serviceability and market acceptance.</li>
+    <li>Improving quality of design also improves quality of conformance.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>گھر کا نقشہ (design) بنانے پر کل خرچ کا بہت کم حصہ لگتا ہے، مگر اگر نقشہ ہی غلط ہو (ہوا اور روشنی کا انتظام نہ ہو) تو بعد میں مستری جتنا بھی اچھا کام کرے، گھر اچھا نہیں بنے گا۔</div>
+  </article>
+
+  <article class="topic" data-id="c1-6" data-title="Quality of Conformance (targets & tolerances)">
+    <h3>Quality Type 2: Quality of Conformance</h3>
+    <div class="key">How well the product made <b>matches the design/specification</b>. It focuses on <b>implementation</b>. If it matches fully, conformance is “excellent”.</div>
+    <ul><li><b>Specification</b> = <b>targets</b> (ideal values) + <b>tolerances</b> (acceptable deviation).</li>
+    <li>Exact target is hard to hit every time because of variation in <b>material, machine, men and process</b> (4 Ms).</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>سموسے کا ڈیزائن: وزن 100 گرام (target)، 5 گرام کم یا زیادہ چلے گا (tolerance)۔ اگر 97 گرام نکلا تو ٹھیک، 85 گرام نکلا تو conformance خراب۔</div>
+    <div class="lab"><h4>Design or Conformance?</h4><div id="s-design"></div></div>
+    <div class="lab"><h4>Target &amp; Tolerance checker</h4>
+      <div class="row">
+        <div><label>Target (e.g. 100)</label><input type="number" id="tg" value="100"></div>
+        <div><label>Tolerance ± (e.g. 5)</label><input type="number" id="tl" value="5"></div>
+        <div><label>Measured value</label><input type="number" id="tm" value="97"></div>
+      </div>
+      <div class="out" id="tout"></div>
+    </div>
+  </article>
+
+  <article class="topic" data-id="c1-7" data-title="Objective vs Perceived Quality">
+    <h3>Different views: Objective vs Perceived Quality</h3>
+    <table><tr><th></th><th>Objective quality</th><th>Perceived quality</th></tr>
+    <tr><td>Meaning</td><td>Measured by instruments and expert ratings on product attributes</td><td>Overall <b>subjective</b> judgment compared to expectation</td></tr>
+    <tr><td>Example</td><td>PC speed, hard disk size, modem</td><td>Brand reputation, price, advertising, others' opinions</td></tr>
+    <tr><td>Includes aesthetics/brand?</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Need to use product?</td><td>Yes (measure it)</td><td>No, you can form opinion without using it</td></tr></table>
+    <div class="warn">It is <b>perception</b>, not objective quality, that drives preference, satisfaction, loyalty, sales and profit. Example: it took <b>Google 3 years</b> after launch to be perceived as the superior search engine.</div>
+    <div class="ur"><b class="t">اردو مثال</b>دو موبائل کی ریم، بیٹری اور کیمرا بالکل برابر ہیں (objective برابر)۔ مگر لوگ مشہور برانڈ کو "زیادہ اچھا" سمجھتے ہیں کیونکہ اشتہار اور دوستوں کی رائے ہے (perceived مختلف)۔</div>
+    <div class="lab"><h4>Objective or Perceived?</h4><div id="s-obj"></div></div>
+  </article>
+
+  <article class="topic" data-id="c1-8" data-title="Mitra & Golder research">
+    <h3>Research: How objective quality affects perceived quality (Mitra &amp; Golder)</h3>
+    <ul>
+      <li>Studied <b>241 products</b>, <b>46 categories</b>, over <b>12 years</b>.</li>
+      <li>A change in objective quality is fully reflected in perception only after about <b>6 years</b>.</li>
+      <li>In the first year only about <b>20%</b> of the total effect shows.</li>
+      <li>Effects are <b>bigger and faster for a decrease</b> in quality than for an equal increase (bad news travels fast).</li>
+      <li><b>High-reputation brands</b> get a “double advantage”: rewarded <b>3 years quicker</b> for an increase, punished <b>1 year slower</b> for a decrease.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>اگر کسی مشہور دکان کی مٹھائی ایک دن خراب نکل آئے تو لوگ کچھ عرصہ معاف کر دیتے ہیں۔ نئی دکان کی مٹھائی بہتر بھی کر دیں تو لوگ سال ہا سال یقین نہیں کرتے۔</div>
+    <div class="lab"><h4>Perception curve (illustration)</h4>
+      <div class="row">
+        <div><label>Quality change</label><select id="mgDir"><option value="up">Increase</option><option value="down">Decrease</option></select></div>
+        <div><label>Brand reputation</label><select id="mgRep"><option value="low">Low</option><option value="high">High</option></select></div>
+      </div>
+      <div id="mgOut"></div>
+      <small style="color:var(--muted)">Shape is only illustrative: year 1 = 20%, an increase for a low-reputation brand completes in ~6 years, a high-reputation brand is 3 years quicker; a decrease is faster, but high reputation delays the punishment by 1 year.</small>
+    </div>
+  </article>
+
+  <article class="topic" data-id="c1-9" data-title="Quality Engineering">
+    <h3>Quality Engineering</h3>
+    <div class="key">The set of <b>operational, managerial and engineering activities</b> a company uses to make sure product quality characteristics are at the <b>nominal (required) levels</b>.</div>
+    <div class="ur"><b class="t">اردو مثال</b>فیکٹری میں مشین چلانا (operational)، منیجر کا منصوبہ بنانا (managerial) اور انجینئر کا مشین ٹھیک کرنا (engineering): تینوں مل کر یقینی بناتے ہیں کہ بسکٹ ہر بار ایک جیسا بنے۔</div>
+  </article>
+
+  <article class="topic" data-id="c1-10" data-title="Quality Control (QC)">
+    <h3>Quality Control (QC)</h3>
+    <div class="key">QC = processes and methods used to <b>monitor work</b> and see whether requirements are met. It focuses on <b>reviews and removal of defects before shipment</b>.</div>
+    <ul><li><b>Objective:</b> minimize produced defects, increase product quality.</li>
+    <li>Done by the same team that builds the product, <b>or</b> by a separate QC group/department.</li>
+    <li><b>Implementation approaches:</b> fully automated · entirely manual · combination of tools + humans.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>بیکری میں ڈبل روٹی پیک ہونے سے پہلے ایک بندہ ہر روٹی دیکھتا ہے۔ جلی ہوئی نکال دیتا ہے۔ یہ QC ہے: ڈلیوری سے پہلے نقص ڈھونڈنا۔</div>
+    <div class="lab"><h4>QA or QC? (QA comes in Chapter 4)</h4><div id="s-qaqc"></div></div>
+  </article>
+
+  <div class="card"><b>📝 Mid-exam style questions (Ch 1)</b>
+    <details><summary>Define quality and software quality.</summary>Quality = meeting customer requirements at agreed cost and time; fitness for purpose (Juran). Software quality (Pressman) = conformance to explicit requirements, documented standards and implicit characteristics.</details>
+    <details><summary>Difference between quality of design and quality of conformance?</summary>Design = how good the plan/design is (what the producer intends). Conformance = how well the produced product matches the design. Design: 5% cost, 70% influence.</details>
+    <details><summary>Objective vs perceived quality?</summary>Objective = measured attributes. Perceived = subjective judgment from brand, price, advertising, experience. Perception drives sales (Google took 3 years).</details>
+    <details><summary>What is QC? Its approaches?</summary>Monitoring work and removing defects before shipment. Automated, manual, or both.</details>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 2 ============================ -->
+<section class="page" id="c2">
+  <h1>Chapter 2: Software Quality Models</h1>
+  <p style="color:var(--muted)">McCall · ISO 9126 · Boehm · FURPS · GQM</p>
+
+  <article class="topic" data-id="c2-1" data-title="What is a Quality Model?">
+    <h3>What is a Quality Model?</h3>
+    <div class="key">A quality model is a set of <b>characteristics and the relationships between them</b> that gives the basis for <b>specifying quality requirements</b> and <b>evaluating quality</b>.</div>
+    <div class="scroll"><table><tr><th>Type</th><th>Model</th><th>Size</th></tr>
+      <tr><td rowspan="3">Standard models</td><td>McCall</td><td>11 factors, 23 criteria</td></tr>
+      <tr><td>ISO/IEC 9126</td><td>6 characteristics, 27 sub-characteristics</td></tr>
+      <tr><td>Boehm</td><td>7 factors, 15 criteria</td></tr>
+      <tr><td rowspan="2">Company/application specific</td><td>FURPS (Hewlett Packard)</td><td>5 factors (+ FURPS+)</td></tr>
+      <tr><td>GQM approach</td><td>Goal → Question → Metric</td></tr></table></div>
+    <div class="ur"><b class="t">اردو مثال</b>کسی لڑکے کو "اچھا" کہنے کے لیے ہر کوئی اپنا پیمانہ رکھتا ہے۔ Quality model ایک مشترکہ چیک لسٹ ہے تاکہ سب ایک ہی پیمانے سے سافٹ ویئر کو ناپیں۔</div>
+  </article>
+
+  <article class="topic" data-id="c2-2" data-title="McCall: Factor–Criteria–Metrics model">
+    <h3>McCall's Factor–Criteria–Metrics Model</h3>
+    <table><tr><th>Level</th><th>Purpose</th><th>View</th></tr>
+      <tr><td><b>Factors</b></td><td>to <b>specify</b></td><td><b>External</b> view (users)</td></tr>
+      <tr><td><b>Criteria</b></td><td>to <b>build</b></td><td><b>Internal</b> view (developers)</td></tr>
+      <tr><td><b>Metrics</b></td><td>to <b>control</b></td><td>Scale and method for measurement</td></tr></table>
+    <ul><li>Quality <b>factor</b> = behavioural characteristic of a system (correctness, reliability, efficiency, testability, portability, maintainability…).</li>
+    <li>Quality <b>criterion</b> = attribute of a factor related to development. Example: <b>Modularity</b> (cohesive components in one module) increases maintainability.</li>
+    <li>McCall model is aimed at <b>system developers</b>, used <b>during development</b>. It does <b>not say much about functionality</b>.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>موٹر سائیکل: گاہک کہتا ہے "تیز اور کم پیٹرول پیئے" (factor، باہر کا نظارہ)۔ مکینک انجن کی ٹیوننگ اور وزن کم کرنا دیکھتا ہے (criteria، اندر کا نظارہ)۔ پھر کلومیٹر فی لیٹر ناپتا ہے (metric)۔</div>
+  </article>
+
+  <article class="topic" data-id="c2-3" data-title="McCall's 11 factors (3 areas)">
+    <h3>McCall's 11 Quality Factors</h3>
+    <div class="grid">
+      <div class="mini"><b>Product Revision</b><small>(ability to change)</small><ul><li>Maintainability — Can I <b>fix</b> it?</li><li>Flexibility — Can I <b>change</b> it?</li><li>Testability — Can I <b>test</b> it?</li></ul></div>
+      <div class="mini"><b>Product Transition</b><small>(adapt to new environments)</small><ul><li>Portability — use on <b>another machine</b>?</li><li>Reusability — <b>reuse</b> parts?</li><li>Interoperability — <b>interface</b> with another app?</li></ul></div>
+      <div class="mini"><b>Product Operation</b><small>(how it works)</small><ul><li>Correctness — does it do what I want?</li><li>Reliability — accurately <b>all the time</b>?</li><li>Efficiency — runs as well as it can?</li><li>Integrity — is it <b>secure</b>?</li><li>Usability — can I <b>run</b> it?</li></ul></div>
+    </div>
+    <div class="key">Memory trick: Revision = <b>M-F-T</b> (3), Transition = <b>P-R-I</b> (3), Operation = <b>C-R-E-I-U</b> (5). Total 3+3+5 = 11.</div>
+    <div class="ur"><b class="t">اردو مثال: ایزی پیسہ جیسی ایپ</b><ul>
+      <li>Correctness: بیلنس بالکل صحیح دکھائے۔</li><li>Reliability: ہر بار، رات 2 بجے بھی کام کرے۔</li>
+      <li>Integrity: دوسرا بندہ میرے پیسے نہ دیکھ سکے۔</li><li>Usability: دادی بھی استعمال کر سکے۔</li>
+      <li>Portability: اینڈرائیڈ اور آئی فون دونوں پر چلے۔</li><li>Interoperability: بینک سے جڑ جائے۔</li>
+      <li>Maintainability: بگ ملے تو جلد ٹھیک ہو۔</li></ul></div>
+    <div class="lab"><h4>Which area? (Revision / Transition / Operation)</h4><div id="s-mcarea"></div></div>
+    <div class="lab"><h4>Which of the 11 factors? (match the slide question)</h4><div id="s-mcf"></div></div>
+  </article>
+
+  <article class="topic" data-id="c2-4" data-title="McCall criteria and relationships">
+    <h3>McCall's Quality Criteria and Relationships</h3>
+    <div class="scroll"><table><tr><th>Criterion</th><th>Meaning</th></tr>
+      <tr><td>Accuracy</td><td>Precision of computations and outputs</td></tr>
+      <tr><td>Completeness</td><td>Full implementation of required functionality</td></tr>
+      <tr><td>Error Tolerance</td><td>Continuity of operations under adverse conditions</td></tr>
+      <tr><td>Expandability</td><td>Degree to which functions can be expanded</td></tr>
+      <tr><td>Hardware Independence</td><td>How little the software depends on hardware</td></tr>
+      <tr><td>Modularity</td><td>Highly independent modules</td></tr>
+      <tr><td>Simplicity</td><td>Ease of understanding the software</td></tr></table></div>
+    <b>Relationships:</b>
+    <ul><li>Each factor is positively influenced by a set of criteria, and the <b>same criterion affects many factors</b>. Example: <b>Simplicity</b> impacts reliability, usability and testability.</li>
+    <li>Improving one factor may <b>hurt</b> another. Example: portable code may be less efficient.</li>
+    <li>Some factors <b>help</b> each other. Example: improving correctness increases reliability.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>کوڈ کو سادہ (simplicity) رکھنے سے بگ کم ہوتے ہیں (reliability)، نیا بندہ جلد سمجھتا ہے (usability for developers) اور ٹیسٹ لکھنا آسان ہوتا ہے (testability)۔ ایک چیز، تین فائدے۔</div>
+  </article>
+
+  <article class="topic" data-id="c2-5" data-title="Relationships between quality factors (trade-offs)">
+    <h3>Trade-offs between Quality Factors</h3>
+    <table><tr><th>Pair</th><th>Relation</th><th>Why</th></tr>
+      <tr><td>Integrity vs Efficiency</td><td><b>Inverse</b> ⬇</td><td>Access control needs extra code and processing → longer run time, more storage.</td></tr>
+      <tr><td>Usability vs Efficiency</td><td><b>Inverse</b> ⬇</td><td>A better user interface needs a lot more code.</td></tr>
+      <tr><td>Maintainability vs Flexibility</td><td><b>Direct</b> ⬆</td><td>Well-structured code is easy to fix <i>and</i> easy to modify.</td></tr>
+      <tr><td>Correctness vs Reliability</td><td><b>Direct</b> ⬆</td><td>More correct → more reliable.</td></tr>
+      <tr><td>Portability vs Efficiency</td><td><b>Inverse</b> ⬇</td><td>Portable code may be less efficient.</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>بینک کی ایپ میں OTP، فنگر پرنٹ اور پاس ورڈ سب لگا دیں تو سیکیورٹی (integrity) بہت اچھی، مگر ایپ کھلنے میں دیر لگتی ہے (efficiency کم)۔ یہ inverse تعلق ہے۔</div>
+    <div class="lab"><h4>See the trade-off</h4>
+      <label>Security checks (Integrity): <b id="tr1v">2</b></label><input type="range" id="tr1" min="0" max="8" value="2">
+      <div class="bar" id="tr1a" style="background:var(--ok)"></div><div class="bar" id="tr1b" style="background:var(--bad)"></div>
+      <hr>
+      <label>Code quality / structure level (Maintainability): <b id="tr2v">3</b></label><input type="range" id="tr2" min="0" max="8" value="3">
+      <div class="bar" id="tr2a" style="background:var(--ok)"></div><div class="bar" id="tr2b" style="background:var(--ok)"></div>
+    </div>
+  </article>
+
+  <article class="topic" data-id="c2-6" data-title="ISO/IEC 9126 model">
+    <h3>ISO / IEC 9126 Model (6 characteristics, 27 sub-characteristics)</h3>
+    <ul><li><b>Software quality characteristic</b> = set of attributes by which quality is described and evaluated.</li>
+    <li>A characteristic is refined into <b>sub-characteristics</b>; each sub-characteristic is evaluated by <b>metrics</b>.</li></ul>
+    <div class="key">Memory trick: <b>F-R-U-E-M-P</b> → Functionality, Reliability, Usability, Efficiency, Maintainability, Portability.</div>
+    <div class="lab"><h4>Click a characteristic</h4><div class="chips" id="isoChips"></div><div class="out" id="isoOut">Choose one above 👆</div></div>
+  </article>
+
+  <article class="topic" data-id="c2-7" data-title="Boehm's model">
+    <h3>Boehm's Quality Model (1978)</h3>
+    <ul><li>Given by <b>Barry W. Boehm in 1978</b>. <b>7 factors, 15 criteria</b>.</li>
+    <li>Three <b>primary uses</b> at the top level:</li></ul>
+    <div class="scroll"><table><tr><th>Primary use</th><th>Meaning</th><th>Sub-characteristics</th></tr>
+      <tr><td><b>As-is utility</b></td><td>How well the software can be used as it is</td><td>Ease of use, reliability, efficiency</td></tr>
+      <tr><td><b>Maintainability</b></td><td>Ease of identifying what needs to change</td><td>Testability, understandability, flexibility/modifiability</td></tr>
+      <tr><td><b>Portability</b></td><td>Ease of changing software for a new environment</td><td>—</td></tr></table></div>
+    <div class="key">Boehm's 7 factors: Portability, Reliability, Efficiency, Human engineering (usability), Testability, Understandability, Modifiability.</div>
+    <div class="ur"><b class="t">اردو مثال</b>پرانا ٹی وی: "جیسا ہے ویسے چلانا" (as-is utility)، خراب ہو تو مستری کو آسانی سے پتہ چلے کہ کیا بدلنا ہے (maintainability)، اور دوسرے گھر یا ملک کی وولٹیج پر چلے (portability)۔</div>
+  </article>
+
+  <article class="topic" data-id="c2-8" data-title="FURPS and FURPS+ (Hewlett Packard)">
+    <h3>FURPS / FURPS+ (Hewlett Packard)</h3>
+    <ul><li>Proposed by <b>Robert Grady (HP) in 1987</b>, later extended by <b>IBM as FURPS+</b>. FURPS is originally <b>company-specific</b>; FURPS+ is widely used in industry.</li></ul>
+    <div class="scroll"><table><tr><th>Letter</th><th>Meaning</th></tr>
+      <tr><td><b>F</b>unctionality</td><td>All system-wide functional requirements</td></tr>
+      <tr><td><b>U</b>sability</td><td>Aesthetics, consistency, documentation</td></tr>
+      <tr><td><b>R</b>eliability</td><td>Availability, accuracy, recoverability</td></tr>
+      <tr><td><b>P</b>erformance</td><td>Response time, resource consumption, start-up time, recovery time</td></tr>
+      <tr><td><b>S</b>upportability</td><td>Can it be extended, adapted, corrected?</td></tr>
+      <tr><td><b>+ Design</b> constraints</td><td>e.g. a relational database is required</td></tr>
+      <tr><td><b>+ Implementation</b> constraints</td><td>Constrain coding: required standards, platform, language</td></tr>
+      <tr><td><b>+ Interface</b> requirements</td><td>Must interact with an external item</td></tr>
+      <tr><td><b>+ Physical</b> requirements</td><td>Hardware limits: shape, size, weight</td></tr></table></div>
+    <div class="ur"><b class="t">اردو مثال: ہسپتال سافٹ ویئر</b><ul><li>F: مریض کا ریکارڈ بنانا۔ U: ڈاکٹر کے لیے آسان اسکرین۔ R: 24 گھنٹے چلے۔ P: ریکارڈ 2 سیکنڈ میں کھلے۔ S: بعد میں نئی لیب جوڑی جا سکے۔</li><li>+Design: ڈیٹا بیس ریلیشنل ہو۔ +Implementation: Java میں لکھا جائے۔ +Interface: لیب مشین سے جڑے۔ +Physical: ٹیبلٹ کا وزن 500 گرام سے کم۔</li></ul></div>
+    <div class="lab"><h4>Classify the requirement (includes the 5 questions from the slide)</h4><div id="s-furps"></div></div>
+  </article>
+
+  <article class="topic" data-id="c2-9" data-title="GQM: Goal–Question–Metric">
+    <h3>GQM: Goal – Question – Metric</h3>
+    <div class="key">GQM is an approach to <b>software metrics</b> with 3 levels:<br>1️⃣ <b>Conceptual (Goal)</b>: list the major goals of the project/process.<br>2️⃣ <b>Operational (Question)</b>: from each goal, questions to find out if it is being met.<br>3️⃣ <b>Quantitative (Metric)</b>: what must be measured to answer the questions.</div>
+    <div class="ur"><b class="t">اردو مثال</b><b>Goal:</b> امتحان میں اچھے نمبر۔ <b>Question:</b> میں روز کتنی دیر پڑھتا ہوں؟ کتنے ٹاپک مکمل ہوئے؟ <b>Metric:</b> روزانہ گھنٹے، مکمل ٹاپک کی تعداد، پریکٹس ٹیسٹ کا اسکور۔</div>
+    <div class="lab"><h4>GQM explorer + build your own</h4>
+      <div class="chips" id="gqmChips"></div><div class="out" id="gqmOut">Pick a goal 👆</div>
+      <hr><b>Build your own:</b>
+      <div class="row"><div><label>Goal</label><input type="text" id="gG" placeholder="e.g. Reduce app crashes" style="width:100%"></div>
+      <div><label>Question</label><input type="text" id="gQ" placeholder="e.g. How many crashes per week?" style="width:100%"></div>
+      <div><label>Metric</label><input type="text" id="gM" placeholder="e.g. crashes / 1000 users" style="width:100%"></div></div>
+      <div class="out" id="gOut">Fill the three boxes to see your GQM chain.</div>
+    </div>
+  </article>
+
+  <article class="topic" data-id="c2-10" data-title="Selecting and prioritizing quality factors">
+    <h3>Selecting and Prioritizing Quality Factors</h3>
+    <ul><li>You <b>cannot maximize all factors</b> (see trade-offs). So choose the few that matter most for the project and the customer.</li>
+    <li>Steps: list factors → decide the project's priorities → check conflicts → set metrics for the chosen ones.</li></ul>
+    <div class="lab"><h4>What matters most for this project? (examples)</h4>
+      <div class="chips" id="prChips"></div><div class="out" id="prOut">Pick a project type 👆</div></div>
+  </article>
+
+  <div class="card"><b>📝 Mid-exam style questions (Ch 2)</b>
+    <details><summary>List McCall's 11 factors in 3 groups.</summary>Revision: maintainability, flexibility, testability. Transition: portability, reusability, interoperability. Operation: correctness, reliability, efficiency, integrity, usability.</details>
+    <details><summary>Difference between factors, criteria, metrics?</summary>Factors = external view, to specify. Criteria = internal view, to build. Metrics = measurement scale, to control.</details>
+    <details><summary>Name the 6 characteristics of ISO 9126.</summary>Functionality, Reliability, Usability, Efficiency, Maintainability, Portability.</details>
+    <details><summary>What is FURPS+? Who proposed it?</summary>Robert Grady, HP, 1987; extended by IBM. F, U, R, P, S plus design, implementation, interface and physical constraints.</details>
+    <details><summary>Explain GQM with an example.</summary>Goal → Questions → Metrics. Goal: improve testing; Q: how many defects found before release?; Metric: defects per KLOC.</details>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 3 ============================ -->
+<section class="page" id="c3">
+  <h1>Chapter 3: Software Quality Engineering Cost</h1>
+  <p style="color:var(--muted)">Cost of Quality · Prevention · Appraisal · Failure · 1-10-100 rule · Quality Cost Conformance model</p>
+
+  <article class="topic" data-id="c3-1" data-title="Cost of Quality: introduction">
+    <h3>Cost of Quality</h3>
+    <div class="key">Cost of quality = <b>all costs</b> spent to get quality or to do quality-related work. It is <b>not only</b> the price of making a good product; it is also the <b>cost of NOT making</b> a good product.</div>
+    <ul><li>Every time work is <b>redone</b>, cost of quality goes up (reworking an item, retesting a component).</li>
+    <li>Any cost that would <b>not exist if quality were perfect</b> is part of the cost of quality.</li>
+    <li><b>Total quality cost</b> = Prevention + Appraisal + Failure (Internal + External).</li></ul>
+    <div class="ur"><b class="t">اردو مثال: بریانی کی دکان</b>
+      <ul><li>Prevention: تازہ مصالحہ خریدنا اور باورچی کی ٹریننگ۔</li><li>Appraisal: دیگ کھولنے سے پہلے چکھ کر دیکھنا۔</li>
+      <li>Internal failure: چکھنے پر خراب نکلی تو دیگ پھینک دینا۔</li><li>External failure: گاہک نے شکایت کی، پیسے واپس کیے۔</li></ul></div>
+  </article>
+
+  <article class="topic" data-id="c3-2" data-title="Prevention cost">
+    <h3>Prevention Cost</h3>
+    <div class="key">Cost of activities that <b>stop defects from happening</b>. Cheapest way to manage quality: avoid defects in the first place.</div>
+    <ul><li>Examples: <b>quality planning, testing equipment, staff training, quality improvement process</b> (e.g. <b>Six Sigma</b>).</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>موبائل کی دکان میں شروع سے ہی اچھا چارجر بیچنا اور عملے کو سمجھانا کہ کیسے استعمال کرنا ہے، تاکہ بعد میں شکایت ہی نہ آئے۔</div>
+  </article>
+
+  <article class="topic" data-id="c3-3" data-title="Appraisal cost">
+    <h3>Appraisal Cost</h3>
+    <div class="key">Cost of <b>measuring, evaluating or auditing</b> products to check they meet standards. Also called <b>inspection cost</b>. Done to catch defects <b>before shipment</b>.</div>
+    <ul><li>Examples: <b>inspections, testing, maintenance of test equipment, supervision of testing/inspection</b>.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>امتحان سے پہلے ٹیچر کا ٹیسٹ لینا تاکہ کمزوری پتہ چل جائے۔ ٹیسٹ پر وقت اور پیسہ لگتا ہے، یہ appraisal ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c3-4" data-title="Failure cost: internal and external">
+    <h3>Failure Cost (Internal &amp; External)</h3>
+    <div class="scroll"><table><tr><th></th><th>Internal failure</th><th>External failure</th></tr>
+      <tr><td>When?</td><td>Defect found <b>before</b> shipping to customer</td><td><b>After</b> delivery/shipment</td></tr>
+      <tr><td>Examples</td><td>Scrap, rework, repair, re-testing, rejected products</td><td>Warranty, product return &amp; replacement, help line support, legal liability</td></tr>
+      <tr><td>Note</td><td>Better appraisal → more internal failure cost found. It is the price to avoid external failure, which can be <b>devastating</b>.</td><td>Gives rise to <b>intangible</b> costs (image).</td></tr></table></div>
+    <div class="ur"><b class="t">اردو مثال</b>درزی نے کُرتا گاہک کو دینے سے پہلے دیکھا کہ آستین چھوٹی ہے، دوبارہ سلائی کی (internal)۔ اگر گاہک نے گھر جا کر پہنا تو واپس لے آیا اور سب کو بتایا (external)، یہ زیادہ مہنگا پڑتا ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c3-5" data-title="Tangible vs Intangible cost">
+    <h3>Tangible vs Intangible Cost</h3>
+    <table><tr><th>Tangible</th><th>Intangible</th></tr>
+      <tr><td>Quantifiable, tied to an identifiable source. Seen <b>instantly</b> (materials, wages, equipment rent).</td><td>Not quantifiable. Not seen now, <b>effects come later</b>: lost productivity, lost customer goodwill, low morale, missed deadline, lost sales from bad reputation.</td></tr>
+      <tr><td>Prevention, appraisal, internal and external failure costs.</td><td>Can be <b>3 or 4 times greater</b> than tangible costs.</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>خراب کھانا پھینکنے کا نقصان (tangible) اندازہ ہو جاتا ہے۔ مگر جو گاہک ناراض ہو کر دوبارہ نہیں آیا اور دس لوگوں کو بتا دیا، اس کا نقصان گنا نہیں جا سکتا (intangible)، اور بہت بڑا ہوتا ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c3-6" data-title="Cost of good vs poor quality">
+    <h3>Cost of Good Quality vs Cost of Poor Quality</h3>
+    <ul><li><b>Cost of GOOD quality</b> = Prevention + Appraisal (building systems and processes to reduce failure).</li>
+    <li><b>Cost of POOR quality</b> = Internal failure + External failure + intangible costs (because quality was poor).</li></ul>
+    <div class="lab"><h4>Which cost category? (5 categories)</h4><div id="s-cost"></div></div>
+    <div class="lab"><h4>Cost of Quality calculator</h4>
+      <div class="row">
+        <div><label>Prevention</label><input type="number" id="cp" value="20000"></div>
+        <div><label>Appraisal</label><input type="number" id="ca" value="30000"></div>
+        <div><label>Internal failure</label><input type="number" id="ci" value="40000"></div>
+        <div><label>External failure</label><input type="number" id="ce" value="60000"></div>
+        <div><label>Intangible × (3–4)</label><input type="number" id="cm" value="3" min="0" max="10" step="0.5"></div>
+      </div>
+      <div id="cout" class="out"></div>
+      <small style="color:var(--muted)">Intangible cost is estimated here as multiplier × external failure cost (the slide says intangible can be 3–4× the tangible). Try raising Prevention and lowering External.</small>
+    </div>
+  </article>
+
+  <article class="topic" data-id="c3-7" data-title="1-10-100 rule">
+    <h3>The 1-10-100 Rule</h3>
+    <div class="key"><b>$1</b> spent on <b>prevention</b> saves <b>$10</b> on <b>correction</b> and <b>$100</b> on <b>failure</b> costs.</div>
+    <div class="ur"><b class="t">اردو مثال</b>گھر بناتے وقت پائپ ٹھیک جوڑنے پر 1 روپیہ (روک تھام)۔ فرش بننے سے پہلے لیکیج پکڑی تو ٹھیک کرنے میں 10 روپے۔ فرش اور رنگ ہو جانے کے بعد پانی ٹپکا تو 100 روپے۔</div>
+    <div class="lab"><h4>1-10-100 calculator</h4>
+      <div class="row"><div><label>Prevention spent (Rs)</label><input type="number" id="r1" value="1000"></div></div>
+      <div class="out" id="r1o"></div></div>
+  </article>
+
+  <article class="topic" data-id="c3-8" data-title="Quality Cost Conformance model (ECL, U-shaped curve)">
+    <h3>Quality Cost Conformance Model (ECL)</h3>
+    <ul><li>An example of <b>constrained optimization</b>.</li>
+    <li>Prevention + appraisal costs <b>rise</b> as conformance level rises.</li>
+    <li>Failure costs <b>fall</b> as conformance level rises.</li>
+    <li>So <b>total cost is U-shaped</b>.</li>
+    <li><b>Economic Conformance Level (ECL)</b> is reached where prevention + appraisal costs are equal to the internal + external failure costs (the lowest point of total).</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>کھانے میں 100٪ پرفیکٹ بنانے کے لیے بہت مہنگا سامان اور انسپکشن لگے گا، اتنا کہ منافع ہی ختم۔ اور بالکل چیک نہ کریں تو شکایتیں اور نقصان۔ درمیان کا ایک "عقل مند" مقام ہے جہاں کل خرچ سب سے کم ہو۔ یہی ECL ہے۔</div>
+    <div class="lab"><h4>Find the ECL</h4>
+      <label>Conformance level: <b id="eclv">50</b>%</label><input type="range" id="ecl" min="0" max="100" value="20">
+      <label>How expensive are failures? ×<b id="eclwv">1</b> (e.g. medical software = high)</label><input type="range" id="eclw" min="0.5" max="3" step="0.1" value="1">
+      <div id="eclsvg"></div><div class="out" id="eclout"></div></div>
+  </article>
+
+  <article class="topic" data-id="c3-9" data-title="Repair cost of defects">
+    <h3>Repair Cost of Defects</h3>
+    <div class="key">The <b>later</b> a defect is found, the <b>more expensive</b> it is to fix. A mistake in requirements that reaches the customer costs far more than one caught in the requirement review.</div>
+    <div class="ur"><b class="t">اردو مثال</b>درزی کو ناپ لیتے وقت غلطی پتہ چل جائے تو صرف نشان بدلنا ہے۔ کپڑا کٹ جائے تو نیا کپڑا۔ سلائی کے بعد پتہ چلے تو پورا کُرتا ضائع۔ گاہک کے گھر پہنچ کر پتہ چلے تو بدنامی بھی۔</div>
+    <div class="lab"><h4>Relative repair cost by phase (typical illustrative values)</h4>
+      <div class="row"><div><label>Cost to fix in requirements (Rs)</label><input type="number" id="rp" value="500"></div></div>
+      <div id="rpo"></div>
+      <small style="color:var(--muted)">The slide shows this as a graph; the multipliers here (1, 5, 10, 20, 100) are the commonly quoted textbook shape, not exact data.</small></div>
+  </article>
+
+  <div class="card"><b>📝 Mid-exam style questions (Ch 3)</b>
+    <details><summary>Explain cost of quality with its categories.</summary>All costs of pursuing quality plus cost of poor quality: prevention, appraisal, internal failure, external failure (+ intangible costs).</details>
+    <details><summary>Internal vs external failure cost?</summary>Internal: before shipment (scrap, rework, repair, re-test). External: after shipment (warranty, returns, help line, legal liability) and hidden image costs.</details>
+    <details><summary>Explain the 1-10-100 rule.</summary>$1 prevention saves $10 correction and $100 failure.</details>
+    <details><summary>Explain the Quality Cost Conformance model.</summary>Prevention+appraisal rise with conformance, failure costs fall, so total is U-shaped. ECL is the optimum where the sum is lowest.</details>
+    <details><summary>Tangible vs intangible cost?</summary>Tangible: quantifiable, seen instantly. Intangible: unquantifiable, effects later (goodwill, morale), can be 3–4× larger.</details>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 4 ============================ -->
+<section class="page" id="c4">
+  <h1>Chapter 4: Software Quality Assurance</h1>
+  <p style="color:var(--muted)">Quality Assurance · Defect prevention · Defect reduction · (containment starts here, details in Ch 5)</p>
+
+  <article class="topic" data-id="c4-1" data-title="Quality Assurance: definition and history">
+    <h3>Quality Assurance (QA)</h3>
+    <div class="key">QA = establishing a <b>framework of organizational procedures and standards</b> that lead to high quality software. “Assurance”: if processes are followed, management can be <b>assured</b> of product quality.</div>
+    <b>History:</b>
+    <ul><li><b>1916</b>: first formal QA and control function at <b>Bell Labs</b> (manufacturing).</li>
+    <li><b>1950s–60s</b>: programmers controlled their own product quality.</li>
+    <li><b>1970s</b>: QA standards first introduced in <b>military contract</b> software development.</li></ul>
+    <table><tr><th>QC (Ch 1)</th><th>QA (Ch 4)</th></tr>
+      <tr><td>Checks the <b>product</b>, removes defects before shipment</td><td>Builds the <b>process/framework</b> so quality is assured</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>QC: بیکری میں تیار روٹی دیکھ کر جلی ہوئی نکالنا۔ QA: بیکری کے قواعد بنانا: صفائی کا نظام، آٹے کا معیار، تندور کا درجہ حرارت، تاکہ روٹی جلے ہی نہیں۔</div>
+  </article>
+
+  <article class="topic" data-id="c4-2" data-title="Classification scheme: prevention, reduction, containment">
+    <h3>Classification Scheme for QA (dealing with defects)</h3>
+    <div class="grid">
+      <div class="mini"><b>1. Defect Prevention</b>Stop faults from being <b>injected</b></div>
+      <div class="mini"><b>2. Defect Reduction</b>Detect and <b>remove</b> faults (static + dynamic testing)</div>
+      <div class="mini"><b>3. Defect Containment</b>Limit damage of failures (Chapter 5)</div>
+    </div>
+    <div class="ur"><b class="t">اردو مثال: مچھر</b>روک تھام: پانی جمع نہ ہونے دیں (مچھر پیدا ہی نہ ہوں)۔ کمی: جو مچھر موجود ہیں سپرے سے مار دیں۔ کنٹرول: مچھر دانی لگائیں تاکہ کاٹ بھی لیں تو نقصان کم ہو۔</div>
+    <div class="lab"><h4>Prevention, Reduction or Containment?</h4><div id="s-three"></div></div>
+  </article>
+
+  <article class="topic" data-id="c4-3" data-title="Defect prevention (error blocking / error source removal)">
+    <h3>Defect Prevention</h3>
+    <div class="key">Prevent faults from being injected via <b>error blocking</b> or <b>error source removal</b>.</div>
+    <ul><li><b>Error source removal</b>: find the root causes behind missing/incorrect human actions and fix them (e.g. correct human misconceptions).</li>
+    <li>Focus is on <b>people and their conceptual mistakes</b>, which may lead to bad choice of methodology, language, algorithm or QA strategy → many fault injections.</li>
+    <li><b>3 techniques:</b> (1) Education and training, (2) Process conformance and standards enforcement, (3) Tools/technologies and techniques.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>اگر ہر نیا پروگرامر array کے index میں غلطی کرتا ہے تو بگ ٹھیک کرتے رہنے کے بجائے ٹریننگ دیں تاکہ غلط فہمی ہی ختم ہو جائے، یہ "error source removal" ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c4-4" data-title="Education and training (4 focus areas)">
+    <h3>Education and Training</h3>
+    <p>Helps people control, manage and improve how they work and removes misconceptions. Focus on <b>4 areas</b>:</p>
+    <div class="scroll"><table><tr><th>Area</th><th>Why</th></tr>
+      <tr><td><b>Product &amp; domain knowledge</b></td><td>If people don't know the application domain, wrong solutions get built.</td></tr>
+      <tr><td><b>Tools</b> (development/testing)</td><td>Tool knowledge helps build high-quality software.</td></tr>
+      <tr><td><b>General software development knowledge</b></td><td>E.g. weak requirements analysis → rework in design, coding, testing.</td></tr>
+      <tr><td><b>Development process knowledge</b></td><td>E.g. in incremental development, if people don't know how increments fit together, interface problems occur.</td></tr></table></div>
+    <div class="key">Trick: <b>P-T-G-P</b> = Product, Tools, General, Process.</div>
+    <div class="ur"><b class="t">اردو مثال</b>جو پروگرامر بینکنگ نہیں جانتا وہ سود اور سروس چارج کے حساب میں غلطی کرے گا۔ پہلے اسے بینکنگ کی بنیادی باتیں سکھائیں۔</div>
+  </article>
+
+  <article class="topic" data-id="c4-5" data-title="Standards enforcement and Tools/technologies">
+    <h3>Process Standards and Tools / Technologies</h3>
+    <ul><li><b>Process conformance and standards enforcement</b>: make people follow the agreed process and standards, so mistakes are blocked.</li>
+    <li>Appropriate <b>methodologies</b> reduce fault injection. Many problems of low-quality “<b>fat software</b>” can be solved by discipline and a return to essentials: “<b>lean software</b>”.</li>
+    <li>Specific <b>tools</b> help: e.g. a <b>syntax-directed editor</b> that automatically balances every “{” with “}” in C reduces syntax problems.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>ورڈ میں spell-check خود غلط الفاظ پر لال لکیر لگا دیتا ہے، اس لیے غلطی لکھی ہی نہیں جاتی۔ کوڈ ایڈیٹر بھی قوسین خود بند کر دیتا ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c4-6" data-title="Defect reduction and Static testing: Inspection">
+    <h3>Defect Reduction: Static Testing → Inspection</h3>
+    <div class="key">Defect reduction = <b>detect and remove faults</b> after they have been injected. Two categories: <b>Static testing</b> (no execution) and <b>Dynamic testing</b> (execute the program).</div>
+    <p><b>Software Inspection</b> = critical examination of software artifacts (code, design, test cases, requirements, test plans) by <b>human inspectors</b> to find and fix faults.</p>
+    <ul><li>Critical reading and analysis of artifacts.</li>
+    <li>Done by <b>multiple inspectors</b> through some coordination process.</li>
+    <li>Faults are found <b>directly</b> by humans (individually or in group sessions).</li>
+    <li>Faults found must be <b>removed</b> and the removal <b>verified</b>.</li>
+    <li>Includes <b>planning and follow-up</b> activities.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>اخبار چھپنے سے پہلے تین پروف ریڈر مضمون الگ الگ پڑھتے ہیں اور پھر ملتے ہیں، یوں غلطیاں چھاپہ خانے سے پہلے پکڑی جاتی ہیں۔ پروگرام چلانے کی ضرورت نہیں پڑی۔</div>
+  </article>
+
+  <article class="topic" data-id="c4-7" data-title="Walkthroughs and Desk Checking">
+    <h3>Static Testing: Walkthrough &amp; Desk Checking</h3>
+    <table><tr><th></th><th>Inspection</th><th>Walkthrough</th><th>Desk check</th></tr>
+      <tr><td>Who</td><td>Several inspectors</td><td>Group</td><td><b>One person</b></td></tr>
+      <tr><td>How</td><td>Critical reading + coordination, planning, follow-up</td><td>Group code reading; procedures slightly different from inspection and uses a <b>different error-detection technique</b></td><td>Reads the program, checks it against an <b>error list</b> and/or <b>walks test data</b> through it</td></tr></table>
+    <div class="key">Desk check = a <b>one-person inspection or walkthrough</b>.</div>
+    <div class="ur"><b class="t">اردو مثال</b>امتحان کا پرچہ دینے سے پہلے آپ خود جوابات دوبارہ پڑھ کر چیک کریں (desk check)۔ دوست کے ساتھ بیٹھ کر ایک ایک سوال پر بات کریں (walkthrough)۔ استاد، ہیڈ اور ایک سینئر مل کر پرچے کا باقاعدہ جائزہ لیں (inspection)۔</div>
+    <div class="lab"><h4>Static or Dynamic?</h4><div id="s-sd"></div></div>
+  </article>
+
+  <article class="topic" data-id="c4-8" data-title="Dynamic testing: Black-box and White-box">
+    <h3>Dynamic Testing: Black-box &amp; White-box</h3>
+    <div class="key">Dynamic testing = <b>executing the software</b> and <b>observing its behavior/outcome</b>. Testing is the most important and most common QA activity.</div>
+    <table><tr><th></th><th>Black-box (functional)</th><th>White / clear-box (structural)</th></tr>
+      <tr><td>Checks</td><td>Correct handling of <b>external functions</b>; behavior matches user expectations/specification</td><td>Correct implementation of <b>internal units, structures and relations</b></td></tr>
+      <tr><td>Emphasis</td><td>Reduce functional problems met by <b>target customers</b></td><td>Observe failures from internal implementation → detect and remove faults</td></tr>
+      <tr><td>Needs code?</td><td>No</td><td>Yes</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>لفٹ: بٹن دبا کر دیکھنا کہ صحیح منزل پر رکتی ہے (black-box)۔ لفٹ کی مشین اور تاریں کھول کر اندر کی ہر چیز جانچنا (white-box)۔</div>
+    <div class="lab"><h4>Black-box or White-box?</h4><div id="s-bw"></div></div>
+    <div class="lab"><h4>Test lab: grade checker (spec: 0–100 valid; 50 or more = Pass; below 50 = Fail; otherwise Invalid)</h4>
+      <div class="chips"><button class="chip on" id="mdB">Black-box mode</button><button class="chip" id="mdW">White-box mode</button></div>
+      <div id="labCode" style="display:none"></div>
+      <div class="row">
+        <div><label>Marks input</label><input type="number" id="lbIn" value="75"></div>
+        <div id="lbExpWrap"><label>Expected (from spec)</label><select id="lbExp"><option>Pass</option><option>Fail</option><option>Invalid</option></select></div>
+        <div style="flex:none"><button class="b" id="lbRun">Run test</button></div>
+      </div>
+      <div class="out" id="lbOut">Try inputs like 75, 30, 120, and the boundary <b>50</b>.</div>
+      <div id="lbCov" style="margin-top:6px"></div></div>
+  </article>
+
+  <div class="card"><b>📝 Mid-exam style questions (Ch 4)</b>
+    <details><summary>Define QA. Give its brief history.</summary>Framework of organizational procedures and standards leading to high quality software. 1916 Bell Labs; 1950s–60s programmers controlled quality; 1970s military standards.</details>
+    <details><summary>Explain the QA classification scheme.</summary>Defect prevention, defect reduction (detect and remove: static and dynamic), defect containment.</details>
+    <details><summary>Explain defect prevention techniques.</summary>Education and training (product/domain, tools, general knowledge, process), process conformance and standards enforcement, tools/technologies and techniques.</details>
+    <details><summary>Inspection vs walkthrough vs desk checking?</summary>Inspection: formal, multiple inspectors, planning and follow-up. Walkthrough: group code reading with a different technique. Desk check: one-person check with an error list/test data.</details>
+    <details><summary>Black-box vs white-box testing?</summary>Black-box checks external functions against specification; white-box checks internal structure and implementation.</details>
+  </div>
+</section>
+
+<!-- ============================ CHAPTER 5 ============================ -->
+<section class="page" id="c5">
+  <h1>Chapter 5: Software Defect Containment</h1>
+  <p style="color:var(--muted)">Fault tolerance · Recovery · Diversity techniques · Decision mechanisms · Fault Tree Analysis</p>
+
+  <article class="topic" data-id="c5-1" data-title="Why defect containment?">
+    <h3>Defect Containment: Why do we need it?</h3>
+    <div class="key">Defect containment = <b>containing failures to local areas</b> and <b>limiting the damage</b>.<br>(1) <b>Fault tolerance</b> breaks the cause-effect link between faults and failures so local faults don't cause global failures. (2) <b>Failure containment</b> avoids catastrophic results (death, injury, severe damage).</div>
+    <ul><li>Software defects <b>cannot be fully removed</b> because systems are large and complex.</li>
+    <li>Remaining faults may be triggered in <b>rare conditions</b>. It is unrealistic to write test cases for all conditions or inspect all scenarios.</li>
+    <li>So we <b>tolerate</b> those faults or <b>contain</b> the failures to reduce damage.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>بجلی جانا ہم نہیں روک سکتے، اس لیے UPS لگا لیتے ہیں تاکہ جب بجلی جائے تو کمپیوٹر بند ہو کر کام ضائع نہ ہو۔ بجلی کی خرابی (fault) موجود ہے مگر نقصان (failure) نہیں ہوا۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-2" data-title="Software fault tolerance basics">
+    <h3>Software Fault Tolerance</h3>
+    <div class="key"><b>Fault tolerance / graceful degradation</b> = the system continues to operate properly when some components fail. If quality decreases, the decrease is <b>proportional to the severity</b> of the failure.</div>
+    <ul><li>Assumes the system has <b>unavoidable and undetectable faults</b> and makes provisions to operate correctly anyway.</li>
+    <li>Faults are detected and recovery happens using various methods.</li>
+    <li>All fault tolerance is based on <b>redundancy</b> (for detection and recovery).</li>
+    <li><b>Stages:</b> error detection → confinement → evaluation of propagation of erroneous info → recovery.</li></ul>
+    <div class="ur"><b class="t">اردو مثال: گریس فل ڈیگریڈیشن</b>چار انجن والا جہاز اگر ایک انجن کھو دے تو گرتا نہیں، بس رفتار تھوڑی کم ہو جاتی ہے۔ جتنی خرابی، اتنی ہی کمی۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-3" data-title="Error detection: active redundancy, replication, temporal">
+    <h3>Error Detection</h3>
+    <ul><li>Starting point of fault tolerance: verification tests to detect errors.</li>
+    <li>Uses <b>active redundancy</b>: redundant elements operating <b>simultaneously</b> to prevent, or allow recovery from, failures → more availability.</li>
+    <li><b>Forms of redundancy:</b> Hardware · Software · Time · Information.</li></ul>
+    <table><tr><th>Approach</th><th>How it detects</th></tr>
+      <tr><td><b>Replication</b></td><td>Uses <b>copies of the system</b>, gives the same input, compares outputs. If <b>results differ</b> → error detected.</td></tr>
+      <tr><td><b>Temporal</b></td><td>Watches an <b>expected time interval</b>. If the watch <b>expires with no response</b> → error detected (watchdog timer).</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>Replication: ایک ہی حساب دو بندوں سے کروائیں؛ جواب مختلف آئے تو غلطی۔ Temporal: امتحان میں گھنٹی؛ وقت ختم ہوا اور جواب نہیں آیا تو مسئلہ۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-4" data-title="Recovery types: backward and forward">
+    <h3>Recovery Types</h3>
+    <table><tr><th>Backward recovery</th><th>Forward recovery</th></tr>
+      <tr><td><b>Undoes</b> executed actions and returns to an earlier <b>consistent state</b>, then continues from there.</td><td>When an abnormal state is found, <b>suspends</b> processing until better conditions; <b>ignores</b> part/all of the work and continues with what is assumed correct.</td></tr>
+      <tr><td>Needs a <b>recovery point</b> that saves information during execution.</td><td>Corrects the wrong behavior by sending <b>compensation information</b>.</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال</b>پیچھے کی طرف: ویڈیو گیم میں آپ مرے تو آخری سیو پوائنٹ سے دوبارہ شروع (backward)۔ آگے کی طرف: بینک نے غلطی سے 500 زیادہ کاٹ لیے تو پرانا لین دین ختم کرنے کے بجائے اگلے ہی دن 500 واپس ڈال دیے (forward، compensation)۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-5" data-title="Fault injection">
+    <h3>Fault Injection (for fault tolerance assessment)</h3>
+    <ul><li>Testing the software under <b>abnormal circumstances</b> with erroneous or invalid external inputs.</li>
+    <li>Goal: inject faults and see if the system can <b>detect and recover</b> as specified.</li>
+    <li>Results can lead to fixing individual bugs or discovering <b>design deficiencies</b> in fault tolerance.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>فائر ڈرل: جان بوجھ کر الارم بجا کر دیکھنا کہ لوگ صحیح نکلتے ہیں یا نہیں۔ اسی طرح سافٹ ویئر میں جان بوجھ کر غلط ان پٹ یا نیٹ ورک بند کر کے دیکھتے ہیں کہ نظام کیسے سنبھالتا ہے۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-6" data-title="Design diversity vs Data diversity">
+    <h3>Design Diversity vs Data Diversity</h3>
+    <div class="scroll"><table><tr><th></th><th>Design diversity</th><th>Data diversity</th></tr>
+      <tr><td>Idea</td><td>Several <b>independently developed versions</b> to a common specification (different teams)</td><td><b>One version</b> of software; <b>change the input data</b> slightly</td></tr>
+      <tr><td>Why works</td><td>Different versions unlikely to fail the same way</td><td>Software fails for certain input values; a small acceptable change may avoid it</td></tr>
+      <tr><td>Environment</td><td>Multiple version software</td><td>Multiple data representation</td></tr>
+      <tr><td>Cost</td><td><b>High</b> (many variants)</td><td><b>Cheaper</b></td></tr>
+      <tr><td>Techniques</td><td>Recovery Block, N-Version, N-Self-Checking</td><td>Retry Block, N-Copy</td></tr></table></div>
+    <div class="ur"><b class="t">اردو مثال</b>Design diversity: ایک ہی سوال تین مختلف استادوں سے حل کروانا۔ Data diversity: ایک ہی استاد کو سوال تھوڑا مختلف انداز میں پوچھنا (مثلاً 0.5 کی جگہ 1/2)۔</div>
+    <div class="lab"><h4>Which technique?</h4><div id="s-tech"></div></div>
+  </article>
+
+  <article class="topic" data-id="c5-7" data-title="Recovery Blocks (RB)">
+    <h3>Recovery Blocks (RB)</h3>
+    <ul><li>Introduced <b>1974 by Horning</b>; early implementations by <b>Randell (1975)</b> and <b>Hecht (1981)</b>.</li>
+    <li>Uses <b>repeated execution (redundancy over time)</b>. Related to <b>sequential systems</b>.</li>
+    <li>Parts: a conventional block + <b>acceptance test</b> + <b>primary alternate</b> + zero or more <b>stand-by spares</b>.</li>
+    <li>If an alternate <b>crashes</b> (divide by zero, time limit exceeded) or <b>fails the acceptance test</b>, the <b>state is restored</b> to what it was before the primary started, then the next alternate runs.</li></ul>
+    <pre class="code">ensure   acceptance test
+by       primary alternate
+else by  alternate 2
+else by  alternate n
+else     error</pre>
+    <div class="ur"><b class="t">اردو مثال</b>پلان A: موٹر سائیکل پر جانا۔ اگر پنکچر ہو (acceptance test fail) تو پہلے حالت واپس (سامان وہیں) اور پلان B: رکشہ۔ وہ بھی نہ ہو تو پلان C: بس۔ آخر میں سب fail تو "error"۔</div>
+    <div class="lab"><h4>Recovery Block simulator (task: double the number)</h4>
+      <div class="row"><div><label>Input x (expected answer = 2x)</label><input type="number" id="rbX" value="21"></div></div>
+      <div class="grid" id="rbCfg"></div>
+      <p style="margin:6px 0;color:var(--muted)">Acceptance test: result must be a number between 0 and 1000.</p>
+      <button class="b" id="rbRun">Run</button><div class="out" id="rbOut"></div></div>
+  </article>
+
+  <article class="topic" data-id="c5-8" data-title="N-Version Programming (NVP)">
+    <h3>N-Version Programming (NVP)</h3>
+    <ul><li>Suggested by <b>Elmendorf (1972)</b>, developed by <b>Avizienis &amp; Chen (1977–78)</b>.</li>
+    <li>Uses <b>parallel redundancy</b>: N different versions fulfilling the same function run <b>in parallel</b>; the <b>voter (decision algorithm)</b> compares all outputs and selects the correct one (usually <b>majority vote</b>).</li>
+    <li>Aim: <b>mask the effect of software flaws</b> in the module's output. Local failure in a few versions will not spoil the global result.</li>
+    <li>Compared with RB, NVP is a <b>static</b> technique. <b>Voter is the fundamental difference</b> between NVP and RB.</li>
+    <li>Needs <b>lots of development effort</b> and teams (high cost).</li></ul>
+    <pre class="code">run Version 1, Version 2, ..., Version n
+if (Decision Mechanism (Result1, Result2, ..., Result n))
+     return Result
+else failure exception</pre>
+    <div class="ur"><b class="t">اردو مثال</b>تین ڈاکٹروں سے الگ الگ رائے لیں۔ دو کہیں "ٹائیفائیڈ" اور ایک "ملیریا" تو اکثریت کی بات مانتے ہیں۔ ایک ڈاکٹر کی غلطی سے مریض کو نقصان نہیں ہوا۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-9" data-title="N-Self-Checking Programming">
+    <h3>N-Self-Checking Programming (NSCP)</h3>
+    <ul><li>Uses multiple versions combined with <b>structural variations of RB and NVP</b>.</li>
+    <li>Versions <b>and acceptance tests</b> are developed <b>independently</b> from common requirements.</li>
+    <li><b>Main difference from RB:</b> a <b>separate acceptance test for each version</b>.</li>
+    <li>Versions and tests can run sequentially or in parallel; the output is taken from the <b>highest-ranking version that passes its own acceptance test</b>.</li></ul>
+    <div class="ur"><b class="t">اردو مثال</b>تین طلبہ اپنا اپنا جواب لکھتے ہیں اور ہر کوئی اپنا جواب خود چیک بھی کرتا ہے۔ جو سب سے سینئر طالب علم کا جواب اس کی اپنی چیکنگ میں پاس ہو، وہی جمع ہوگا۔</div>
+    <div class="lab"><h4>NVP vs NSCP simulator</h4>
+      <div class="chips"><button class="chip on" id="vmN">NVP (voting)</button><button class="chip" id="vmS">NSCP (own tests, ranking)</button></div>
+      <p style="margin:6px 0;color:var(--muted)" id="vHint"></p>
+      <div id="vCfg" class="grid"></div>
+      <button class="b" id="vRun" style="margin-top:8px">Decide</button><div class="out" id="vOut"></div></div>
+  </article>
+
+  <article class="topic" data-id="c5-10" data-title="Retry Blocks (data diversity)">
+    <h3>Retry Blocks (RtB)</h3>
+    <ul><li>By <b>Ammann &amp; Knight (1987–88)</b>. A modification of the recovery block that uses <b>data diversity</b> instead of design diversity.</li>
+    <li><b>Same algorithm</b>, <b>different data</b>: if the first try fails the acceptance test, <b>re-express the input</b> (equivalent or nearly equivalent form) and run again.</li>
+    <li>Repeats until the test passes or the <b>deadline expires</b>; then a <b>backup algorithm</b> runs with the <b>original input</b>; if that fails → failure exception.</li></ul>
+    <pre class="code">ensure   Acceptance Test
+by       Primary Algorithm (Original Input)
+else by  Primary Algorithm (Re-expressed Input)
+else by  Primary Algorithm (Re-expressed Input)
+... [Deadline Expires]
+else by  Backup Algorithm (Original Input)
+else     failure exception</pre>
+    <div class="ur"><b class="t">اردو مثال</b>کیلکولیٹر 0 پر فیل ہوتا ہے تو آپ 0 کی جگہ 0.0001 ڈال کر دوبارہ حساب لگاتے ہیں۔ جواب تقریباً وہی آتا ہے۔ طریقہ وہی، ڈیٹا ذرا بدلا ہوا۔</div>
+    <div class="lab"><h4>Retry Block simulator</h4>
+      <p style="color:var(--muted);margin:4px 0">Primary algorithm computes 100 ÷ x but has a hidden bug: it <b>crashes whenever x is a multiple of 10</b>. Re-expression adds a tiny change (x + 0.01 × attempt).</p>
+      <div class="row"><div><label>Input x</label><input type="number" id="rtX" value="20"></div>
+      <div><label>Max retries (deadline)</label><input type="number" id="rtN" value="2" min="0" max="5"></div>
+      <div style="flex:none"><button class="b" id="rtRun">Run</button></div></div>
+      <div class="out" id="rtOut"></div></div>
+  </article>
+
+  <article class="topic" data-id="c5-11" data-title="N-Copy Programming (NCP)">
+    <h3>N-Copy Programming (NCP)</h3>
+    <ul><li>The <b>data-diverse version of NVP</b>.</li>
+    <li>Uses one or more <b>Data Re-expression Algorithms (DRA)</b> and <b>at least two copies</b> of the same program.</li>
+    <li>Inputs go through the DRAs → copies run <b>in parallel</b> on the re-expressed data → a <b>Decision Mechanism (DM)</b> picks the best result, if there is one.</li>
+    <li>Parts: <b>executive</b>, 1 to n DRAs, n copies, and a DM. The executive orchestrates the steps.</li></ul>
+    <pre class="code">run DRA 1, DRA 2, ..., DRA n
+run Copy 1(result of DRA 1), Copy 2(result of DRA 2), ..., Copy n(...)
+if (Decision Mechanism (Result 1, Result 2, ..., Result n))
+     return Result
+(else error occurs)</pre>
+    <div class="ur"><b class="t">اردو مثال</b>ایک ہی کاریگر کی تین نقلیں (copies)، ہر ایک کو ناپ تھوڑے مختلف انداز میں دیا (cm، انچ، گز)۔ آخر میں منیجر (DM) دیکھتا ہے کہ کس کا نتیجہ سب سے صحیح ہے۔</div>
+    <table><tr><th></th><th>Design diversity</th><th>Data diversity</th></tr>
+      <tr><td>Sequential (try one by one)</td><td>Recovery Block</td><td>Retry Block</td></tr>
+      <tr><td>Parallel (vote/decide)</td><td>N-Version Programming</td><td>N-Copy Programming</td></tr></table>
+  </article>
+
+  <article class="topic" data-id="c5-12" data-title="Decision mechanisms: voters, comparator, acceptance tests">
+    <h3>Decision Mechanism</h3>
+    <div class="grid">
+      <div class="mini"><b>Voter</b>Compares results from <b>two or more</b> variants and decides the correct result, if any exists.</div>
+      <div class="mini"><b>Comparator</b>A voter when there are exactly <b>two results</b>.</div>
+      <div class="mini"><b>Acceptance test</b>Checks the <b>final result</b>. Doesn't matter which alternative produced it; only that it is <b>within acceptable limits</b>. Must be <b>simple</b>.</div>
+    </div>
+    <div class="warn">A badly designed acceptance test causes <b>two flaws</b>: (1) <b>rejecting a correct</b> alternative, (2) <b>accepting an incorrect</b> alternative.</div>
+    <div class="ur"><b class="t">اردو مثال</b>ٹیچر کا چیک: "جواب 0 سے 100 کے درمیان ہو" (آسان acceptance test)۔ اگر کوئی غلط جواب 40 لکھ دے تو بھی پاس ہو جائے گا (incorrect accepted)۔ اگر ٹیسٹ بہت سخت ہو تو صحیح جواب 101 بھی رد ہو سکتا ہے (correct rejected)۔</div>
+  </article>
+
+  <article class="topic" data-id="c5-13" data-title="Failure containment and Fault Tree Analysis (FTA)">
+    <h3>Failure Containment &amp; Fault Tree Analysis (FTA)</h3>
+    <div class="key">Even with prevention and tolerance, faults remain. Can we (a) <b>prevent accidents</b> and (b) <b>reduce their damage</b>? We can't prevent all accidents, but we can <b>analyze hazards</b> and <b>limit damage</b>.</div>
+    <ul><li>FTA was developed in <b>1962 at Bell Labs by H.A. Watson</b>, under a <b>US Air Force</b> contract, to evaluate the <b>Minuteman I ICBM</b> launch control system.</li>
+    <li>FTA is a <b>top-down, deductive</b> failure analysis: start from an undesired state and use <b>Boolean logic (AND, OR)</b> to combine lower-level events.</li>
+    <li>Used in <b>safety engineering and reliability engineering</b> to find the probability of a safety accident or a system-level failure.</li>
+    <li><b>Steps:</b> identify possible failures → list events that cause the accident → draw an <b>upside-down tree</b> (nodes = failures; edges = AND/OR).</li>
+    <li><b>Uses of the tree:</b> accident <b>elimination</b>, <b>reduction</b>, <b>control</b>.</li></ul>
+    <table><tr><th>Gate</th><th>Top event happens when…</th><th>Probability</th></tr>
+      <tr><td><span class="tag or">OR</span></td><td><b>any one</b> child happens</td><td>1 − (1−p1)(1−p2)…</td></tr>
+      <tr><td><span class="tag and">AND</span></td><td><b>all</b> children happen</td><td>p1 × p2 × …</td></tr></table>
+    <div class="ur"><b class="t">اردو مثال: گاڑی سٹارٹ نہیں ہو رہی</b>ٹاپ: "گاڑی سٹارٹ نہیں" ← <b>OR</b> (بیٹری ڈیڈ، یا پیٹرول ختم، یا سیلف خراب)۔ ہر وجہ کے نیچے اور وجوہات۔ ہمیں درخت سے پتہ چلتا ہے کہ سب سے آسان راستہ کون سا ہے جس سے حادثہ ہو سکتا ہے، پھر وہیں حفاظت لگاتے ہیں۔</div>
+    <div class="lab"><h4>Fault Tree builder</h4>
+      <div class="chips" id="ftChips"></div>
+      <p style="color:var(--muted);margin:4px 0">Tick the events that happened (leaf nodes) or change the probabilities. See if the top event happens.</p>
+      <div id="ftBox"></div><div class="out" id="ftOut"></div></div>
+  </article>
+
+  <div class="card"><b>📝 Mid-exam style questions (Ch 5)</b>
+    <details><summary>What is fault tolerance / graceful degradation?</summary>System continues to work when some components fail; quality drops in proportion to failure severity. Based on redundancy.</details>
+    <details><summary>Explain backward and forward recovery.</summary>Backward: restore to earlier consistent state using recovery point. Forward: continue from the assumed-correct state and correct errors with compensation info.</details>
+    <details><summary>Explain Recovery Block with syntax.</summary>ensure AT by primary else by alternate 2 … else error. State restored before each alternate.</details>
+    <details><summary>NVP vs Recovery Block?</summary>NVP: parallel, static, voter picks majority. RB: sequential, acceptance test, state restore. Voter is the fundamental difference.</details>
+    <details><summary>Design vs data diversity? Name techniques.</summary>Design: multiple versions (RB, NVP, NSCP), costly. Data: one version, changed input (Retry Block, NCP), cheaper.</details>
+    <details><summary>What is FTA? Where and when was it developed?</summary>Top-down deductive failure analysis using Boolean logic; Bell Labs 1962, H.A. Watson, US Air Force, Minuteman I.</details>
+  </div>
+</section>
+
+<!-- ============================ QUIZ ============================ -->
+<section class="page" id="quiz">
+  <h1>Practice Quiz</h1>
+  <p>Choose a chapter (or all), answer, and read the explanation. Your wrong answers show which chapter to revise.</p>
+  <div class="card">
+    <div class="row"><div><label>Chapter</label><select id="qCh"><option value="all">All chapters (mixed)</option><option value="1">Chapter 1</option><option value="2">Chapter 2</option><option value="3">Chapter 3</option><option value="4">Chapter 4</option><option value="5">Chapter 5</option></select></div>
+    <div style="flex:none"><button class="b" id="qStart">Start / Restart</button></div></div>
+    <div id="qBox"></div>
+  </div>
+</section>
+
+<!-- ============================ CARDS ============================ -->
+<section class="page" id="cards">
+  <h1>Flashcards &amp; Glossary</h1>
+  <div class="card">
+    <div class="row"><div><label>Chapter</label><select id="fcCh"><option value="all">All</option><option value="1">Ch 1</option><option value="2">Ch 2</option><option value="3">Ch 3</option><option value="4">Ch 4</option><option value="5">Ch 5</option></select></div>
+    <div style="flex:none"><button class="b alt" id="fcShuf">Shuffle</button></div></div>
+    <div class="fc"><div class="fc-in" id="fcCard"></div></div>
+    <p style="text-align:center;color:var(--muted)" id="fcInfo"></p>
+    <div style="text-align:center">
+      <button class="b alt" id="fcPrev">◀ Prev</button>
+      <button class="b" id="fcFlip">Flip</button>
+      <button class="b alt" id="fcNext">Next ▶</button></div>
+    <p style="text-align:center;color:var(--muted)">Tip: tap the card to flip. Say the answer out loud before flipping.</p>
+  </div>
+  <h2>Glossary (search)</h2>
+  <input type="text" id="gloSearch" placeholder="Type a term, e.g. voter, tolerance, 1-10-100" style="width:100%;max-width:520px">
+  <div class="scroll"><table id="gloTable"></table></div>
+</section>
+
+<!-- ============================ SHEET ============================ -->
+<section class="page sheet" id="sheet">
+  <h1>One-Page Cheat Sheet</h1>
+  <button class="b noprint" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  <div class="grid">
+    <div class="card"><h3>Ch 1: Quality basics</h3><ul>
+      <li>Quality = requirements + agreed cost + agreed time; fitness for purpose (Juran)</li>
+      <li>IEEE: meets specified requirements + user needs. ISO 8402: stated or implied needs. Weinberg: value to some person</li>
+      <li>Pressman: explicit req + standards + implicit characteristics</li>
+      <li>Variation control: predicted vs actual resources</li>
+      <li>Design (5% cost, 70% influence) vs Conformance (matches design; target ± tolerance)</li>
+      <li>Objective (measured) vs Perceived (subjective; drives sales; Google 3 yrs)</li>
+      <li>Mitra &amp; Golder: 241 products, 46 categories, 12 yrs; 20% in year 1; full ~6 yrs; drops faster; high brand: +3 yrs quicker, −1 yr slower</li>
+      <li>QC: monitor work, remove defects before shipment; automated/manual/both</li></ul></div>
+    <div class="card"><h3>Ch 2: Models</h3><ul>
+      <li>McCall 11/23: factors (specify, external) · criteria (build, internal) · metrics (control)</li>
+      <li>Revision: Maintainability, Flexibility, Testability</li>
+      <li>Transition: Portability, Reusability, Interoperability</li>
+      <li>Operation: Correctness, Reliability, Efficiency, Integrity, Usability</li>
+      <li>Trade-offs: integrity↔efficiency (inverse), usability↔efficiency (inverse), maintainability↔flexibility (direct)</li>
+      <li>ISO 9126 (6/27): Functionality, Reliability, Usability, Efficiency, Maintainability, Portability</li>
+      <li>Boehm 1978 (7/15): as-is utility, maintainability, portability</li>
+      <li>FURPS (Grady, HP, 1987; IBM FURPS+): Functionality, Usability, Reliability, Performance, Supportability + design, implementation, interface, physical</li>
+      <li>GQM: Goal (conceptual) → Question (operational) → Metric (quantitative)</li></ul></div>
+    <div class="card"><h3>Ch 3: Cost</h3><ul>
+      <li>Total = Prevention + Appraisal + Failure (internal + external)</li>
+      <li>Prevention: planning, training, Six Sigma. Appraisal: inspection, testing, test equipment</li>
+      <li>Internal: scrap, rework, repair, retest, rejects. External: warranty, returns, help line, legal</li>
+      <li>Intangible (image, goodwill) can be 3–4× tangible</li>
+      <li>Good quality cost = prevention + appraisal; poor = failures + intangible</li>
+      <li>1-10-100: $1 prevent, $10 correct, $100 failure</li>
+      <li>ECL: total cost is U-shaped; optimum at the lowest point</li></ul></div>
+    <div class="card"><h3>Ch 4: QA</h3><ul>
+      <li>QA = framework of procedures and standards. 1916 Bell Labs; 50s–60s programmers; 70s military</li>
+      <li>Prevention → Reduction → Containment</li>
+      <li>Prevention: error blocking / error source removal; training (product, tools, general, process), standards, tools (lean software, syntax-directed editor)</li>
+      <li>Reduction: Static (inspection, walkthrough, desk check) · Dynamic (black-box, white-box)</li>
+      <li>Inspection: multiple human inspectors + planning + follow-up. Desk check: one-person</li>
+      <li>Black-box: external functions vs spec. White-box: internal structure</li></ul></div>
+    <div class="card"><h3>Ch 5: Containment</h3><ul>
+      <li>Defects can't be fully removed → tolerate faults, contain failures</li>
+      <li>Fault tolerance = graceful degradation, based on redundancy (hardware, software, time, information)</li>
+      <li>Stages: detection → confinement → propagation evaluation → recovery</li>
+      <li>Detection: replication (compare outputs), temporal (timer)</li>
+      <li>Recovery: backward (recovery point, undo) · forward (continue, compensation)</li>
+      <li>Fault injection: test under abnormal input</li>
+      <li>Design diversity (costly): Recovery Block (1974 Horning; AT + state restore) · NVP (Elmendorf 1972; voter; static) · NSCP (own AT per version)</li>
+      <li>Data diversity (cheaper, one version): Retry Block (Ammann &amp; Knight; re-express input, deadline, backup) · NCP (DRA + copies + DM)</li>
+      <li>AT flaws: reject correct / accept incorrect</li>
+      <li>FTA: 1962 Bell Labs, H.A. Watson, Minuteman I; top-down, Boolean AND/OR; eliminate/reduce/control accidents</li></ul></div>
+  </div>
+</section>
+
+</main>
+<footer>Made for SQE mids revision · Based on lectures by Ms. Samreen, FUUAST Islamabad</footer>
+
+<script src="js/core.js"></script>
+<script src="js/labs.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

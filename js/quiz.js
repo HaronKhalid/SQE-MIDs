@@ -1,0 +1,154 @@
+/* Practice quiz + flashcards/glossary data and logic */
+/* ---------- QUIZ ---------- */
+const QZ=[
+[1,"Which definition says “Quality is value to some person”?",["Juran","Weinberg","IEEE","ISO 8402"],1,"Gerald Weinberg: quality is subjective."],
+[1,"“Fitness for purpose” was said by:",["Pressman","Boehm","Juran","Grady"],2,"Joseph Juran."],
+[1,"Design is about ___ of product cost but has ___ influence on quality.",["70% / 5%","5% / 70%","50% / 50%","10% / 90%"],1,"5% cost, 70% influence."],
+[1,"Which type of quality focuses on how well the product matches its design?",["Quality of design","Quality of conformance","Perceived quality","Objective quality"],1,"Conformance = implementation as per design."],
+[1,"Specifications are made of:",["Targets and tolerances","Costs and times","Factors and criteria","Goals and metrics"],0,"Targets are ideal values; tolerances are acceptable deviations."],
+[1,"Which is an example of perceived quality?",["CPU speed","Hard disk size","Brand reputation","Modem speed"],2,"Reputation, price, advertising are perceived."],
+[1,"According to Mitra & Golder, a quality change is fully reflected in perception after about:",["1 year","3 years","6 years","12 years"],2,"About 6 years; 20% in year one."],
+[1,"High-reputation brands are rewarded ___ for an increase and punished ___ for a decrease.",["3 years quicker / 1 year slower","1 year quicker / 3 years slower","3 years slower / 1 year quicker","same speed"],0,"The “double advantage”."],
+[1,"QC mainly focuses on:",["Process framework","Reviews and removal of defects before shipment","Cost estimation","Training"],1,"QC monitors work and removes defects before shipment."],
+[1,"Pressman says software quality includes conformance to explicit requirements, standards and:",["Implicit characteristics","Profit","Brand","Budget"],0,"Implicit characteristics expected of all professional software."],
+[2,"McCall's model has how many factors?",["6","7","11","15"],2,"11 factors, 23 criteria."],
+[2,"Which McCall factor answers “Can I fix it?”",["Flexibility","Maintainability","Testability","Reliability"],1,"Maintainability = fix; Flexibility = change."],
+[2,"Which factors are in Product Transition?",["Portability, Reusability, Interoperability","Maintainability, Flexibility, Testability","Correctness, Reliability, Efficiency","Integrity, Usability, Testability"],0,"Transition = adapt to new environments."],
+[2,"Which pair has an INVERSE relationship?",["Maintainability–Flexibility","Correctness–Reliability","Integrity–Efficiency","Simplicity–Testability"],2,"Security needs extra processing → slower."],
+[2,"McCall quality FACTORS are used to:",["Build","Specify","Measure","Test"],1,"Factors specify (external); criteria build; metrics control."],
+[2,"ISO 9126 has how many characteristics?",["5","6","7","11"],1,"6 characteristics, 27 sub-characteristics."],
+[2,"Which is NOT an ISO 9126 characteristic?",["Portability","Efficiency","Integrity","Maintainability"],2,"Integrity is McCall. ISO uses Functionality (with security inside)."],
+[2,"Boehm's model was proposed in:",["1978","1987","1962","1916"],0,"Barry W. Boehm, 1978; 7 factors, 15 criteria."],
+[2,"“Oracle 8i will be the database” is a ___ requirement in FURPS+.",["Design","Implementation","Interface","Physical"],1,"It constrains the technology used to build."],
+[2,"FURPS was proposed by Robert Grady at:",["IBM","Hewlett Packard","Bell Labs","Microsoft"],1,"HP in 1987; IBM extended it to FURPS+."],
+[2,"In GQM, “Question” is the ___ level.",["Conceptual","Operational","Quantitative","Physical"],1,"Goal = conceptual; Question = operational; Metric = quantitative."],
+[3,"Which is a prevention cost?",["Rework","Staff training","Warranty","Re-testing"],1,"Training, planning, Six Sigma are prevention."],
+[3,"Inspection and testing are ___ costs.",["Prevention","Appraisal","Internal failure","External failure"],1,"Appraisal (inspection) costs."],
+[3,"Scrap, rework and re-testing are ___.",["Prevention costs","Appraisal costs","Internal failure costs","External failure costs"],2,"Found before shipment."],
+[3,"Warranty and help-line support are ___.",["Internal failure","External failure","Appraisal","Prevention"],1,"After delivery."],
+[3,"Intangible costs can be ___ tangible costs.",["Equal to","3–4 times greater than","Half of","Unrelated to"],1,"They can be 3–4× greater."],
+[3,"According to the 1-10-100 rule, $1 on prevention saves ___ on failure.",["$10","$50","$100","$1000"],2,"$1 prevention, $10 correction, $100 failure."],
+[3,"Total cost in the quality cost conformance model is:",["Straight line","U-shaped","Always decreasing","Always increasing"],1,"Control costs rise, failure costs fall → U-shape."],
+[3,"Cost of GOOD quality includes:",["Prevention + appraisal","Internal + external failure","Intangible cost","Warranty"],0,"The first two categories."],
+[4,"QA means:",["Finding bugs only","Framework of procedures and standards leading to high quality","Writing code","Customer support"],1,"QA is about the process framework."],
+[4,"The first formal QA function was introduced at:",["IBM in 1950","Bell Labs in 1916","NASA in 1970","HP in 1987"],1,"Bell Labs, 1916, manufacturing."],
+[4,"Which is NOT part of QA classification for defects?",["Prevention","Reduction","Containment","Marketing"],3,"Prevention, reduction, containment."],
+[4,"Error source removal belongs to:",["Defect prevention","Defect reduction","Defect containment","Dynamic testing"],0,"Remove root causes of human errors."],
+[4,"Which is a defect prevention technique?",["Black-box testing","Education and training","Fault tree","Recovery block"],1,"Training, standards, tools."],
+[4,"Static testing includes:",["Black-box testing","Inspection and walkthrough","White-box testing","Fault injection"],1,"Static: no execution."],
+[4,"A desk check is:",["A group review","A one-person inspection/walkthrough","Automated test","Black-box test"],1,"One person reads and walks test data through the code."],
+[4,"Which testing verifies internal units and structures?",["Black-box","White-box","Acceptance","Static"],1,"White (clear)-box = structural testing."],
+[4,"A syntax-directed editor that balances braces helps with:",["Defect prevention","Defect containment","Recovery","Voting"],0,"Tools that stop faults being injected."],
+[5,"Fault tolerance is based on:",["Redundancy","Documentation","Marketing","Inspection"],0,"All fault tolerance uses redundancy."],
+[5,"Graceful degradation means:",["System stops at first fault","Quality decreases in proportion to failure severity","Faults are ignored","Code is deleted"],1,"Continue operating with proportional loss."],
+[5,"A watchdog timer is which detection approach?",["Replication","Temporal","Voting","Backward"],1,"Error if time expires without response."],
+[5,"Replication detects an error when:",["Time expires","Outputs of copies differ for the same input","Code is long","Cost is high"],1,"Compare outputs."],
+[5,"Backward recovery needs a:",["Voter","Recovery point","DRA","Fault tree"],1,"It restores to a saved consistent state."],
+[5,"Forward recovery corrects errors using:",["Compensation information","A voter","Re-testing","Inspection"],0,"It continues and compensates."],
+[5,"Which is a design-diversity technique?",["Retry block","N-Copy programming","N-Version programming","Fault injection"],2,"RB, NVP, NSCP are design diversity."],
+[5,"Which uses data diversity with ONE version of software?",["Recovery block","Retry block","NVP","NSCP"],1,"Retry block and NCP."],
+[5,"What is the fundamental difference between NVP and recovery blocks?",["Acceptance test","Voter","Alternates","State restore"],1,"NVP has a voter; RB uses acceptance test with sequential alternates."],
+[5,"NSCP differs from RB mainly because:",["It uses a voter","Each version has its own acceptance test","It uses one version","It is cheaper"],1,"Separate acceptance test per version."],
+[5,"In a retry block, if retries/deadline fail, the next step is:",["Backup algorithm with original input","Voting","Fault tree","Stop silently"],0,"Then failure exception if backup fails."],
+[5,"A decision mechanism with exactly two results is called a:",["Voter","Comparator","Acceptance test","DRA"],1,"Comparator."],
+[5,"Two flaws of a badly designed acceptance test are:",["Slow and costly","Rejecting a correct alternative and accepting an incorrect one","Too many versions","No redundancy"],1,"Both types of wrong decision."],
+[5,"FTA was originally developed at Bell Labs in 1962 to evaluate:",["Minuteman I ICBM launch control","A bank system","A compiler","A website"],0,"By H.A. Watson under US Air Force contract."],
+[5,"Fault tree analysis is:",["Bottom-up, inductive","Top-down, deductive using Boolean logic","Only a testing method","A cost model"],1,"Starts from the undesired top event; AND/OR gates."]
+];
+let qq=[],qi=0,qs=0,qwrong={};
+function qStart(){const c=$("#qCh").value;qq=shuffle(QZ.filter(q=>c==="all"||q[0]==+c));qi=0;qs=0;qwrong={};qDraw()}
+function qDraw(){
+  const box=$("#qBox");
+  if(qi>=qq.length){const w=Object.keys(qwrong);
+    box.innerHTML=`<div class="out"><div class="score">${qs} / ${qq.length}</div> ${qs/qq.length>=0.8?"🎉 Excellent!":qs/qq.length>=0.6?"👍 Good. Revise weak areas.":"📚 Keep practising."}<br>${w.length?"Revise: "+w.map(c=>`<a href="#c${c}" data-c="c${c}" class="qr">Chapter ${c} (${qwrong[c]} wrong)</a>`).join(" · "):"No mistakes!"}<br><button class="b" style="margin-top:8px" id="qAgain">Try again</button></div>`;
+    $("#qAgain").onclick=qStart;$$(".qr",box).forEach(a=>a.onclick=e=>{e.preventDefault();go(a.dataset.c)});return}
+  const q=qq[qi];
+  box.innerHTML=`<div class="out"><small>Question ${qi+1} of ${qq.length} · Chapter ${q[0]} · Score ${qs}</small><div style="font-weight:600;margin:6px 0">${q[1]}</div>${q[2].map((o,i)=>`<button class="opt" style="display:block;width:100%" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}<div id="qfb"></div></div>`;
+  let lock=false;
+  $$("#qBox .opt").forEach(b=>b.onclick=()=>{if(lock)return;lock=true;const i=+b.dataset.i,ok=i===q[3];
+    if(ok)qs++;else qwrong[q[0]]=(qwrong[q[0]]||0)+1;
+    b.classList.add(ok?"right":"wrong");$$("#qBox .opt")[q[3]].classList.add("right");
+    $("#qfb").innerHTML=`<div style="margin-top:8px">${ok?'<span class="good">✔ Correct.</span>':'<span class="badc">✘ Wrong.</span>'} ${q[4]}<br><button class="b" style="margin-top:8px" id="qNext">${qi+1<qq.length?"Next":"Finish"}</button></div>`;
+    $("#qNext").onclick=()=>{qi++;qDraw()}});
+}
+$("#qStart").onclick=qStart;$("#qCh").onchange=qStart;qStart();
+
+/* ---------- FLASHCARDS / GLOSSARY ---------- */
+const GL=[
+[1,"Quality","Meeting customer requirements at the agreed cost within the agreed time; fitness for purpose."],
+[1,"Weinberg's definition","“Quality is value to some person”: it is subjective."],
+[1,"IEEE quality","Degree to which a system, component or process meets specified requirements and customer needs or expectations."],
+[1,"ISO 8402","Totality of features and characteristics of a product/service that bear on its ability to satisfy stated or implied needs."],
+[1,"Software quality (Pressman)","Conformance to explicit functional and performance requirements, documented standards and implicit characteristics."],
+[1,"Variation control","Minimizing the difference between predicted and actual resources (staff, equipment, time)."],
+[1,"Quality of design","How well the software is designed; the quality the producer intends to offer. 5% of cost, 70% influence."],
+[1,"Quality of conformance","How well the produced software conforms to the design/specification."],
+[1,"Specification","Targets (ideal values) plus tolerances (acceptable deviations)."],
+[1,"Objective quality","Measured by instruments and expert ratings of product attributes (speed, capacity)."],
+[1,"Perceived quality","Overall subjective judgment relative to expectation; based on brand, price, advertising, experience."],
+[1,"Quality engineering","Operational, managerial and engineering activities to keep quality characteristics at required levels."],
+[1,"Quality control (QC)","Processes and methods to monitor work and see whether requirements are met; reviews and removal of defects before shipment."],
+[2,"Quality model","Set of characteristics and their relationships; basis for specifying and evaluating quality."],
+[2,"McCall: factor / criteria / metric","Factor = external view (specify); criteria = internal view (build); metric = measurement (control)."],
+[2,"Product revision","Maintainability, flexibility, testability."],
+[2,"Product transition","Portability, reusability, interoperability."],
+[2,"Product operation","Correctness, reliability, efficiency, integrity, usability."],
+[2,"ISO 9126","6 characteristics (functionality, reliability, usability, efficiency, maintainability, portability), 27 sub-characteristics."],
+[2,"Boehm's model","1978; 7 factors, 15 criteria; as-is utility, maintainability, portability."],
+[2,"FURPS","Functionality, Usability, Reliability, Performance, Supportability (Grady, HP, 1987)."],
+[2,"FURPS+","Adds design, implementation, interface and physical constraints (IBM extension)."],
+[2,"GQM","Goal (conceptual) → Question (operational) → Metric (quantitative)."],
+[3,"Cost of quality","All costs of pursuing quality plus the cost of not having it."],
+[3,"Prevention cost","Quality planning, testing equipment, staff training, quality improvement (Six Sigma)."],
+[3,"Appraisal cost","Inspections, testing, maintenance of test equipment, supervision of testing."],
+[3,"Internal failure cost","Defects found before shipment: scrap, rework, repair, re-testing, rejects."],
+[3,"External failure cost","After delivery: warranty, returns, help line, legal liability."],
+[3,"Tangible cost","Quantifiable and seen instantly."],
+[3,"Intangible cost","Not quantifiable; effects later (goodwill, morale, lost sales); can be 3–4× larger."],
+[3,"Cost of good vs poor quality","Good = prevention + appraisal. Poor = internal + external failure + intangible."],
+[3,"1-10-100 rule","$1 on prevention saves $10 on correction and $100 on failure."],
+[3,"Economic Conformance Level (ECL)","Lowest point of the U-shaped total cost: where prevention+appraisal balance failure costs."],
+[4,"Quality assurance (QA)","Framework of organizational procedures and standards that lead to high quality software."],
+[4,"Defect prevention","Stop faults being injected: error blocking, error source removal."],
+[4,"Error source removal","Find and fix root causes (e.g. human misconceptions) of faults."],
+[4,"Defect reduction","Detect and remove faults after injection: static and dynamic testing."],
+[4,"Static testing","Examining artifacts without running the program: inspection, walkthrough, desk check."],
+[4,"Inspection","Critical examination of artifacts by multiple human inspectors, with planning and follow-up."],
+[4,"Walkthrough","Group code reading with different procedures and error-detection technique than inspection."],
+[4,"Desk checking","One-person inspection: read code, check with an error list, walk test data through."],
+[4,"Dynamic testing","Execute the software and observe behavior (black-box, white-box)."],
+[4,"Black-box testing","Checks external functions against spec/user expectation."],
+[4,"White-box testing","Checks internal units, structures and relations."],
+[5,"Defect containment","Containing failures to local areas and limiting the damage."],
+[5,"Fault tolerance","System keeps operating properly when components fail; based on redundancy."],
+[5,"Graceful degradation","Quality decreases in proportion to the severity of the failure."],
+[5,"Active redundancy","Redundant elements operating simultaneously to prevent or recover from failure."],
+[5,"Replication (detection)","Run copies with same input; different outputs reveal an error."],
+[5,"Temporal (detection)","Timer expires without response → error."],
+[5,"Backward recovery","Undo actions and return to an earlier consistent state (recovery point)."],
+[5,"Forward recovery","Continue from the assumed-correct state and fix errors via compensation."],
+[5,"Fault injection","Testing under abnormal/invalid inputs to check detection and recovery."],
+[5,"Design diversity","Independent versions to common spec (RB, NVP, NSCP); costly."],
+[5,"Data diversity","One version, re-expressed input (Retry block, NCP); cheaper."],
+[5,"Recovery block","Primary + alternates + acceptance test; state restored before each alternate; sequential."],
+[5,"N-Version Programming","N versions in parallel; voter chooses (majority); static."],
+[5,"N-Self-Checking Programming","Each version has its own acceptance test; highest-ranking passing version's output is used."],
+[5,"Retry block","Same algorithm; re-express input and retry until AT passes or deadline; then backup algorithm."],
+[5,"N-Copy Programming","Data-diverse NVP: DRAs + ≥2 copies in parallel + decision mechanism."],
+[5,"Voter / comparator","Voter compares ≥2 results; comparator when exactly two."],
+[5,"Acceptance test","Checks the final result is within acceptable limits; must be simple; flaws: reject correct / accept incorrect."],
+[5,"Fault Tree Analysis","Top-down deductive analysis using AND/OR logic; Bell Labs 1962, Minuteman I."],
+[5,"Failure containment","Measures to avoid catastrophic consequences when failures happen."]
+];
+let fc=[],fi=0,flip=false;
+function fcLoad(){const c=$("#fcCh").value;fc=GL.filter(g=>c==="all"||g[0]==+c);fi=0;flip=false;fcDraw()}
+function fcDraw(){const g=fc[fi];if(!g)return;const e=$("#fcCard");e.classList.toggle("back",flip);e.innerHTML=flip?`<div>${g[2]}</div>`:`<div><small style="color:var(--muted)">Chapter ${g[0]}</small><br><b>${g[1]}</b></div>`;$("#fcInfo").textContent=`Card ${fi+1} of ${fc.length}`}
+$("#fcCard").onclick=$("#fcFlip").onclick=()=>{flip=!flip;fcDraw()};
+$("#fcNext").onclick=()=>{fi=(fi+1)%fc.length;flip=false;fcDraw()};
+$("#fcPrev").onclick=()=>{fi=(fi-1+fc.length)%fc.length;flip=false;fcDraw()};
+$("#fcShuf").onclick=()=>{fc=shuffle(fc);fi=0;flip=false;fcDraw()};
+$("#fcCh").onchange=fcLoad;fcLoad();
+function glo(){const s=$("#gloSearch").value.toLowerCase();
+ $("#gloTable").innerHTML="<tr><th>Ch</th><th>Term</th><th>Meaning</th></tr>"+GL.filter(g=>!s||(g[1]+g[2]).toLowerCase().includes(s)).map(g=>`<tr><td>${g[0]}</td><td><b>${g[1]}</b></td><td>${g[2]}</td></tr>`).join("")}
+$("#gloSearch").oninput=glo;glo();
+
