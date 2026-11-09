@@ -31,12 +31,14 @@
     <button class="b btn-big" id="continueBtn">▶ Start learning</button>
   </div>
 
+  <div id="homeScen"></div>
+
   <h2>📚 Chapters</h2>
   <div class="chap-grid" id="chapCards"></div>
 
   <h2>✍️ Practice</h2>
   <div class="practice-grid">
-    <button class="chap-card" data-go="quiz"><div class="t">✍️ Quiz</div><div class="s">55 questions with explanations</div></button>
+    <button class="chap-card" data-go="quiz"><div class="t">✍️ Quiz</div><div class="s">Quick, scenario and mock exam modes</div></button>
     <button class="chap-card" data-go="cards"><div class="t">🃏 Flashcards</div><div class="s">Quick revision of all terms</div></button>
     <button class="chap-card" data-go="sheet"><div class="t">📄 Cheat sheet</div><div class="s">Everything on one page</div></button>
   </div>
@@ -742,14 +744,31 @@ if (Decision Mechanism (Result 1, Result 2, ..., Result n))
 </section>
 
 <!-- ============================ QUIZ ============================ -->
+<!-- ============================ SCENARIOS ============================ -->
+<section class="page" id="scenarios">
+  <h1>🧩 Scenarios</h1>
+  <div id="scBox"></div>
+</section>
+
 <section class="page" id="quiz">
   <h1>Practice Quiz</h1>
-  <p>Choose a chapter (or all), answer, and read the explanation. Your wrong answers show which chapter to revise.</p>
+  <p class="muted">Pick a mode, then answer. Practice modes explain each answer straight away. The mock exam explains only after you submit.</p>
   <div class="card">
-    <div class="row"><div><label>Chapter</label><select id="qCh"><option value="all">All chapters (mixed)</option><option value="1">Chapter 1</option><option value="2">Chapter 2</option><option value="3">Chapter 3</option><option value="4">Chapter 4</option><option value="5">Chapter 5</option></select></div>
-    <div style="flex:none"><button class="b" id="qStart">Start / Restart</button></div></div>
-    <div id="qBox"></div>
+    <div class="row">
+      <div><label for="qMode">Mode</label><select id="qMode">
+        <option value="quick">Quick Quiz</option><option value="scenario">Scenario Quiz</option><option value="mixed">Mixed Quiz</option><option value="chapter">Chapter Practice</option><option value="mock">Full Mock Exam</option></select></div>
+      <div><label for="qCh">Chapter</label><select id="qCh"><option value="all">All chapters</option><option value="1">Chapter 1</option><option value="2">Chapter 2</option><option value="3">Chapter 3</option><option value="4">Chapter 4</option><option value="5">Chapter 5</option></select></div>
+    </div>
+    <p class="muted" id="qModeNote" style="margin:8px 0"></p>
+    <div class="row">
+      <div><label for="qDiff">Difficulty</label><select id="qDiff"><option value="all">Any</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></div>
+      <div><label for="qWhich">Questions</label><select id="qWhich"><option value="all">All</option><option value="new">Not attempted yet</option><option value="wrong">Previously incorrect</option></select></div>
+      <div><label for="qCount">How many</label><select id="qCount"><option value="10">10</option><option value="20">20</option><option value="all">All available</option></select></div>
+    </div>
+    <div class="btnrow"><button class="b" id="qStart">Start quiz</button></div>
   </div>
+  <div id="qBox"></div>
+  <div id="qHistory"></div>
 </section>
 
 <!-- ============================ CARDS ============================ -->
@@ -828,8 +847,12 @@ if (Decision Mechanism (Result 1, Result 2, ..., Result n))
 <footer>Made for SQE mids revision · Based on lectures by Ms. Samreen, FUUAST Islamabad</footer>
 
 <script src="js/core.js"></script>
+<script src="js/progress.js"></script>
 <script src="js/labs.js"></script>
+<script src="js/scenario-data.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/scenarios.js"></script>
+<script src="js/quiz-modes.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* Practice quiz + flashcards/glossary data and logic */
+/* Concept-question data (QZ) + flashcards/glossary. Quiz modes are in quiz-modes.js */
 /* ---------- QUIZ ---------- */
 const QZ=[
 [1,"Which definition says “Quality is value to some person”?",["Juran","Weinberg","IEEE","ISO 8402"],1,"Gerald Weinberg: quality is subjective."],
@@ -55,23 +55,7 @@ const QZ=[
 [5,"FTA was originally developed at Bell Labs in 1962 to evaluate:",["Minuteman I ICBM launch control","A bank system","A compiler","A website"],0,"By H.A. Watson under US Air Force contract."],
 [5,"Fault tree analysis is:",["Bottom-up, inductive","Top-down, deductive using Boolean logic","Only a testing method","A cost model"],1,"Starts from the undesired top event; AND/OR gates."]
 ];
-let qq=[],qi=0,qs=0,qwrong={};
-function qStart(){const c=$("#qCh").value;qq=shuffle(QZ.filter(q=>c==="all"||q[0]==+c));qi=0;qs=0;qwrong={};qDraw()}
-function qDraw(){
-  const box=$("#qBox");
-  if(qi>=qq.length){const w=Object.keys(qwrong);
-    box.innerHTML=`<div class="out"><div class="score">${qs} / ${qq.length}</div> ${qs/qq.length>=0.8?"🎉 Excellent!":qs/qq.length>=0.6?"👍 Good. Revise weak areas.":"📚 Keep practising."}<br>${w.length?"Revise: "+w.map(c=>`<a href="#c${c}" data-c="c${c}" class="qr">Chapter ${c} (${qwrong[c]} wrong)</a>`).join(" · "):"No mistakes!"}<br><button class="b" style="margin-top:8px" id="qAgain">Try again</button></div>`;
-    $("#qAgain").onclick=qStart;$$(".qr",box).forEach(a=>a.onclick=e=>{e.preventDefault();go(a.dataset.c)});return}
-  const q=qq[qi];
-  box.innerHTML=`<div class="out"><small>Question ${qi+1} of ${qq.length} · Chapter ${q[0]} · Score ${qs}</small><div style="font-weight:600;margin:6px 0">${q[1]}</div>${q[2].map((o,i)=>`<button class="opt" style="display:block;width:100%" data-i="${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}<div id="qfb"></div></div>`;
-  let lock=false;
-  $$("#qBox .opt").forEach(b=>b.onclick=()=>{if(lock)return;lock=true;const i=+b.dataset.i,ok=i===q[3];
-    if(ok)qs++;else qwrong[q[0]]=(qwrong[q[0]]||0)+1;
-    b.classList.add(ok?"right":"wrong");$$("#qBox .opt")[q[3]].classList.add("right");
-    $("#qfb").innerHTML=`<div style="margin-top:8px">${ok?'<span class="good">✔ Correct.</span>':'<span class="badc">✘ Wrong.</span>'} ${q[4]}<br><button class="b" style="margin-top:8px" id="qNext">${qi+1<qq.length?"Next":"Finish"}</button></div>`;
-    $("#qNext").onclick=()=>{qi++;qDraw()}});
-}
-$("#qStart").onclick=qStart;$("#qCh").onchange=qStart;qStart();
+/* quiz logic lives in quiz-modes.js */
 
 /* ---------- FLASHCARDS / GLOSSARY ---------- */
 const GL=[

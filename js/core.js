@@ -10,8 +10,8 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[
 /* ---------- chapter + page info ---------- */
 const CHAPTERS=[
   ["c1","Quality basics"],["c2","Quality models"],["c3","Cost of quality"],["c4","Quality assurance"],["c5","Defect containment"]];
-const NAV=[["home","🏠","Home"],["learn","📚","Learn"],["quiz","✍️","Quiz"],["cards","🃏","Cards"],["sheet","📄","Sheet"]];
-const PAGE_IDS=["home","quiz","cards","sheet",...CHAPTERS.map(c=>c[0])];
+const NAV=[["home","🏠","Home"],["learn","📚","Learn"],["scenarios","🧩","Scenarios"],["quiz","✍️","Quiz"],["cards","🃏","Cards"],["sheet","📄","Sheet"]];
+const PAGE_IDS=["home","scenarios","quiz","cards","sheet",...CHAPTERS.map(c=>c[0])];
 const isChap=id=>/^c\d$/.test(id);
 
 /* ---------- navigation ---------- */
@@ -30,6 +30,8 @@ function go(id,topic){
   $$("#tabs button").forEach(b=>b.classList.toggle("on",b.dataset.go===navId));
   $$("#chapbar .pill").forEach(b=>b.classList.toggle("on",b.dataset.go===id));
   document.body.classList.toggle("in-chapter",isChap(id));
+  document.body.classList.toggle("in-scen",id==="scenarios");
+  if(id==="scenarios"&&typeof scShow==="function")scShow();
   try{history.replaceState(null,"","#"+id)}catch(e){}
   if(topic){
     const el=document.querySelector(`[data-id="${topic}"]`);
@@ -112,6 +114,7 @@ function progress(){
     const n=$("#cnt-"+c);if(n)n.textContent=p[0]+" of "+p[1]+" learned";
   });
   buildHome(per,d,all.length);
+  if(typeof renderHomeScenarios==="function")renderHomeScenarios();
 }
 function buildHome(per,d,total){
   $("#chapCards").innerHTML=CHAPTERS.map(([c,name],i)=>{
@@ -127,7 +130,7 @@ function buildHome(per,d,total){
   $("#covmap").innerHTML=CHAPTERS.map(([c,name],i)=>`<h4>Chapter ${i+1}: ${name}</h4>`+$$(`#${c} .topic[data-id]`).map(t=>`<a href="#${c}" data-c="${c}" data-t="${t.dataset.id}"><span class="ck">${done[t.dataset.id]?"✅":"⬜"}</span>${t.dataset.title}</a>`).join("")).join("");
   $$("#covmap a").forEach(a=>a.onclick=e=>{e.preventDefault();go(a.dataset.c,a.dataset.t)});
 }
-$("#resetP").onclick=()=>{if(confirm("Reset all progress?")){done={};store.set("sqe-done",done);$$(".topic").forEach(t=>{t.classList.remove("done");const b=$(".learn-btn",t);if(b)b.textContent="✓ I have learned this topic"});progress()}};
+$("#resetP").onclick=()=>{if(confirm("Reset ALL progress on this device (topics, scenarios and quizzes)?")){if(window.SQP)SQP.reset();done={};store.set("sqe-done",done);$$(".topic").forEach(t=>{t.classList.remove("done");const b=$(".learn-btn",t);if(b)b.textContent="✓ I have learned this topic"});progress()}};
 $$("[data-go]").forEach(b=>{if(!b.closest("#tabs")&&!b.closest("#chapbar"))b.onclick=()=>go(b.dataset.go)});
 
 /* ---------- theme + print ---------- */
